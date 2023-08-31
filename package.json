@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "A starting point for the CSS Frameworks CA project",
   "scripts": {
+    "build": "sass scss:dist/css",
     "test": "echo \"We will learn more about testing in the Workflow course\" && exit 1"
   },
   "repository": {
@@ -26,5 +27,8 @@
   "main": "index.js",
   "dependencies": {
     "bootstrap": "^5.2.0"
+  },
+  "devDependencies": {
+    "sass": "^1.66.1"
   }
 }
