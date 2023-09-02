@@ -16,7 +16,7 @@ components- badge- headings--- to put the name of the person that owns the feed.
 
 
 
-# images taken from free resources in freepik and unsplash: 
+# images that are not privat are <h1><span class="badge bg-secondary">Kira</span></h1> taken from free resources in freepik and unsplash: 
 
 •	santa-maddalena-dolomites-rangesouth-tyrol https://www.freepik.com/free-photo/santa-maddalena-dolomites-rangesouth-tyrol_27469041.htm#query=switzerland&position=4&from_view=search&track=sph
 •	view-oia-street-mornong hellas https://www.freepik.com/free-photo/view-oia-street-mornong_33155658.htm#query=greece&from_query=hellas&position=3&from_view=search&track=sph
