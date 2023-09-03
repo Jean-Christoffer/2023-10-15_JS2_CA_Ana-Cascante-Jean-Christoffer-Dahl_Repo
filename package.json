@@ -7,11 +7,11 @@
     "watch": "sass --watch src/scss:dist/css"
     }
     
-  },
+  }
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AnaCascante/2023-09-03_CSS_Frameworks_CA_Ana-Cascante_Repo.git"
-  },
+  }
   "keywords": [
     "CSS",
     "CSS",
