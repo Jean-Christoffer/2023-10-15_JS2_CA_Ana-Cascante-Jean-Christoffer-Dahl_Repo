@@ -57,3 +57,7 @@ Customized picture and carousell
         <div class="row justify-content-center align-items-center text-center col">col one</div>
       </div>
      </div>
+
+# colaboration 
+
+thank you to fellow students for helping out and making me aware of some issues! 
