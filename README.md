@@ -22,3 +22,20 @@ components- badge- headings--- to put the name of the person that owns the feed.
 •	view-oia-street-mornong hellas https://www.freepik.com/free-photo/view-oia-street-mornong_33155658.htm#query=greece&from_query=hellas&position=3&from_view=search&track=sph
 •	high-angle-shot-beautiful-canal-venice-with-gondolas-two-buildings  https://www.freepik.com/free-photo/high-angle-shot-beautiful-canal-venice-with-gondolas-two-buildings_9077163.htm#query=Italy&position=30&from_view=search&track=sph
 •	colorful-building-facades-along-nyhavn-canal-copenhagen-denmark from https://www.freepik.com/search?format=search&last_filter=selection&last_value=1&query=Danmark&selection=1
+
+
+
+   <!--this is how to distribute the information in the page- where in space-->
+
+     <div class="container">
+      <div class="row">
+        <div class="row justify-content-center align-items-center text-center col-sm-12 col-md-6">col one</div>
+        <div class="row justify-content-center align-items-center text-center col-sm-12 col-md-6">col two</div>
+      </div>
+     </div>
+
+     <div class="container">
+      <div class="row">
+        <div class="row justify-content-center align-items-center text-center col">col one</div>
+      </div>
+     </div>
