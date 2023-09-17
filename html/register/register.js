@@ -1,9 +1,11 @@
 
-import logIn  from "./utils/helpers/loginFunc.js";
+
 const selectors =  [
     "#email",
     "#password",
-    "#login_form",
+    "#name",
+    "#nameError",
+    "#register_form",
     "#passwordError",
     "#emailError"
 ]
@@ -14,25 +16,37 @@ const baseURL = "https://api.noroff.dev/api/v1"
 const [
     email,
     password,
-    loginForm,
+    userName,
+    nameError,
+    registerForm,
     passwordError,
     emailError
 ] = selected;
 
+console.log(emailError)
 
-loginForm.addEventListener("submit", async(e) => {
+registerForm.addEventListener("submit", async(e) => {
     e.preventDefault();
     const emailValue = email.value.trim().toLowerCase();
     const passwordValue = password.value
+    const nameValue = userName.value
+    
   
     let isFormValid = true;
     passwordError.textContent = '';
     emailError.textContent = '';
+    nameError.textContent = "";
 
     if (passwordValue.length < 8) {
         passwordError.textContent = 'Password must be at least 8 characters long.';
         isFormValid = false;
     }
+    if(nameValue.length < 2){
+        nameError.textContent = "Your name must be atleast 2 characters long"
+        isFormValid = false;
+    }
+       
+    
 
     if (!mailRegex.test(emailValue)) {
         emailError.textContent = 'Invalid email format.';
@@ -41,7 +55,9 @@ loginForm.addEventListener("submit", async(e) => {
 
     if(isFormValid){
         try{
-            logIn(`${baseURL}`,{"email":`${emailValue}`,"password":`${passwordValue}`})
+            await createUser(`${baseURL}`,{"email":`${emailValue}`,"password":`${passwordValue}`,"name":`${nameValue}`})
+            showSnackbar("User created successfully! you can now log in");
+
         }catch(err){
             console.log(err)
         }
@@ -49,11 +65,11 @@ loginForm.addEventListener("submit", async(e) => {
   
     }
 })
-//register func
-async function logIn(url, data={}){
 
+//createUser
+async function createUser(url ="", data={}){
     try{
-        const response = await fetch(`${url}/social/auth/login`,{
+        const response = await fetch(`${url}/social/auth/register`,{
             method:"POST",
             credentials:"same-origin",
             headers:{
@@ -61,31 +77,25 @@ async function logIn(url, data={}){
             },
             body:JSON.stringify(data)
     })
-    if (!response.ok) {
-     
-        throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const responseData = await response.json()
-
-    const token = responseData.accessToken
-    if (token) {
-        localStorage.setItem('bearerToken', token);
-        if(responseData && token){
-            window.location.href = "profile.html";
-            
-            console.log("succ")
-        }
-    } else {
-        console.error("Token not found in response");
-    }
-    
-    return responseData;
+    return response.json();
     }catch(err){
         console.log(err)
     }
 
-
 }
 
-export default logIn
+function showSnackbar(message) {
+    const snackbar = document.getElementById('snackbar');
+    const snackbarMessage = document.getElementById('snackbarMessage');
+
+    snackbarMessage.textContent = message; 
+    snackbar.classList.remove('d-none'); 
+
+
+    setTimeout(() => {
+        snackbar.classList.add('d-none');
+    }, 3000);
+}
+
+
 
