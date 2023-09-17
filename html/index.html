@@ -11,11 +11,11 @@
 
     <script src="login.js"  type="module"></script>
 </head>
-<body  class="bg-dark text-white d-flex justify-content-center align-items-center" style="height: 70vh">
+<body  class="bg-secondary text-white d-flex justify-content-center align-items-center" style="height: 70vh">
   <div class="container mb-30  ">
     <div class="row justify-content-center align-items-center">
         <div class="col-md-6">
-            <div class="card bg-secondary text-white"> <!-- dark card background and white text for the card -->
+            <div class="card bg-dark text-white"> <!-- dark card background and white text for the card -->
                 <div class="card-header">
                     <h1>Login</h1>
                 </div>
@@ -24,18 +24,20 @@
                         <div class="mb-3">
                             <label for="email" class="form-label">Email *</label>
                             <input type="email" class="form-control" aria-describedby="emailHelp" id="email" placeholder="example@mail.com"/>
-                            <div id="emailHelp" class="form-text text-light"><small id="emailError" class="text-danger"></small></div> <!-- light color text for hints -->
+                            <div id="emailHelp" class="form-text text-light">
+                              <strong id="emailError" class="text-danger"></strong>
+                            </div> <!-- light color text for hints -->
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password *</label>
                             <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" autocomplete="false" placeholder="******"/>
                             <div id="passwordHelpBlock" class="form-text text-light">
-                                <small id="passwordError" class="text-danger"></small>
+                                <strong id="passwordError" class="text-danger"></strong>
                             </div>
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
                             <button type="submit" class="btn btn-warning">Log in</button> <!-- yellow button -->
-                            <a href="register/register.html" class="btn btn-light btn-sm text-dark">Don't have an account yet?</a> <!-- light button with dark text -->
+                            <a href="register/register.html" class="btn btn-light btn-sm text-dark">Create account</a> <!-- light button with dark text -->
                         </div>
                     </form>
                 </div>
