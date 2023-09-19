@@ -55,7 +55,8 @@ registerForm.addEventListener("submit", async(e) => {
 
     if(isFormValid){
         try{
-            await createUser(`${baseURL}`,{"email":`${emailValue}`,"password":`${passwordValue}`,"name":`${nameValue}`})
+             createUser(`${baseURL}`,
+            {"name":`${nameValue}`,"email":`${emailValue}`,"password":`${passwordValue}`,"avatar:":"","banner":""})
             showSnackbar("User created successfully! you can now log in");
 
         }catch(err){
@@ -65,6 +66,9 @@ registerForm.addEventListener("submit", async(e) => {
   
     }
 })
+
+
+
 
 //createUser
 async function createUser(url ="", data={}){
@@ -77,7 +81,9 @@ async function createUser(url ="", data={}){
             },
             body:JSON.stringify(data)
     })
-    return response.json();
+
+    const userData = await response.json()
+    return userData
     }catch(err){
         console.log(err)
     }
