@@ -81,15 +81,9 @@ async function createUser(url ="", data={}){
             },
             body:JSON.stringify(data)
     })
-<<<<<<< HEAD
-    console.log(response);
-
-    return response.json();
-=======
 
     const userData = await response.json()
     return userData
->>>>>>> aa82f2ec7e385259aad7b9e37e092d36be2145bb
     }catch(err){
         console.log(err)
     }
