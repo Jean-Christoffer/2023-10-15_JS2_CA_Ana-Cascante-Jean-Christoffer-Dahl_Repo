@@ -42,6 +42,7 @@ loginForm.addEventListener("submit", async(e) => {
     if(isFormValid){
         try{
             logIn(`${baseURL}`,{"email":`${emailValue}`,"password":`${passwordValue}`})
+            localStorage.setItem('name', token);
         }catch(err){
             console.log(err)
         }

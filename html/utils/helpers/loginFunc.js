@@ -17,12 +17,14 @@ async function logIn(url, data={}){
     const responseData = await response.json()
 
     const token = responseData.accessToken
+    const userName = responseData.name
     if (token) {
         localStorage.setItem('bearerToken', token);
+        localStorage.setItem("name",userName)
         if(responseData && token){
-            window.location.href = "profile.html";
+            window.location.href = "profile/profile.html";
             
-            console.log("succ")
+       
         }
     } else {
         console.error("Token not found in response");
