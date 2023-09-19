@@ -42,6 +42,7 @@ const [
 let token
 let userName
 token =  localStorage.getItem('bearerToken', token);
+
 userName =  localStorage.getItem('name', userName);
 
 const baseURL = "https://api.noroff.dev/api/v1";
