@@ -23,13 +23,11 @@ const [
     emailError
 ] = selected;
 
-console.log(emailError)
-
 registerForm.addEventListener("submit", async(e) => {
     e.preventDefault();
     const emailValue = email.value.trim().toLowerCase();
     const passwordValue = password.value
-    const nameValue = userName.value
+    const nameValue = userName.value.trim().replace(" ", "")
     
   
     let isFormValid = true;
@@ -55,6 +53,7 @@ registerForm.addEventListener("submit", async(e) => {
 
     if(isFormValid){
         try{
+     
              createUser(`${baseURL}`,
             {"name":`${nameValue}`,"email":`${emailValue}`,"password":`${passwordValue}`,"avatar:":"","banner":""})
             showSnackbar("User created successfully! you can now log in");
@@ -68,32 +67,6 @@ registerForm.addEventListener("submit", async(e) => {
 })
 
 
-async function testing(){
-    try{
-        const response = await fetch(`https://api.noroff.dev/api/v1/social/auth/register`,{
-            method:"POST",
-            credentials:"same-origin",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify(
-                {
-                "name":"christoffer",
-                "email": "first.last@stud.noroff.no",
-                "password":"12345678"
-                 }
-             )
-    })
-    const data = await response.json()
-    console.log(data)
-    return data
-    }catch(err){
-        console.log(err)
-    }
-}
-
-
-
 //createUser
 async function createUser(url ="", data={}){
     try{
@@ -104,8 +77,11 @@ async function createUser(url ="", data={}){
                 "Content-Type":"application/json"
             },
             body:JSON.stringify(data)
+          
     })
-
+    if(!response.ok){
+        console.log(response)
+    }
     const userData = await response.json()
 
     return userData
