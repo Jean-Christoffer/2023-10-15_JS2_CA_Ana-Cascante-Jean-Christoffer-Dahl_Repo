@@ -68,6 +68,30 @@ registerForm.addEventListener("submit", async(e) => {
 })
 
 
+async function testing(){
+    try{
+        const response = await fetch(`https://api.noroff.dev/api/v1/social/auth/register`,{
+            method:"POST",
+            credentials:"same-origin",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(
+                {
+                "name":"christoffer",
+                "email": "first.last@stud.noroff.no",
+                "password":"12345678"
+                 }
+             )
+    })
+    const data = await response.json()
+    console.log(data)
+    return data
+    }catch(err){
+        console.log(err)
+    }
+}
+
 
 
 //createUser
@@ -83,16 +107,13 @@ async function createUser(url ="", data={}){
     })
 
     const userData = await response.json()
+
     return userData
     }catch(err){
         console.log(err)
     }
 
-
-
 }
-
-
 
 function showSnackbar(message) {
     const snackbar = document.getElementById('snackbar');
