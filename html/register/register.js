@@ -77,12 +77,18 @@ async function createUser(url ="", data={}){
             },
             body:JSON.stringify(data)
     })
+    console.log(response);
+
     return response.json();
     }catch(err){
         console.log(err)
     }
 
+
+
 }
+
+
 
 function showSnackbar(message) {
     const snackbar = document.getElementById('snackbar');
