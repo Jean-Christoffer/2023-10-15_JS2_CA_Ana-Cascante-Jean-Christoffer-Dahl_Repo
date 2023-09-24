@@ -112,7 +112,7 @@ async function generateHTML(){
     const data = await getProfile(baseURL,userName, options)
     //your posts
     const getUserPosts = await getPostByProfile(baseURL,userName,options)
-    console.log(getUserPosts)
+
 
 
     //get posts by followed users
@@ -141,9 +141,6 @@ async function generateHTML(){
     generateProfileCards(getUserPosts, yourPosts,data)
     //people i follow posts
     generateProfileCards(resultsUserPosts[0],followerPostsContainer,userBioResult[0])
-
-    
-
 
 }
 // edit function for editing post, uses data-attributes to get the post id from your posts
@@ -175,6 +172,16 @@ confirmEditBtn.addEventListener('click', async function(event) {
 });
 
 generateHTML()
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -271,6 +278,10 @@ function generateProfileCards(data, container, userProfile) {
       cardBody.appendChild(mediaWrapper);
     }
     cardBody.append(p);
+
+
+
+
 
 
     //more buttons
