@@ -411,7 +411,7 @@ function generateProfileCards(data, container, userProfile) {
 
     element.comments.forEach(comment => { 
       const commentDiv = document.createElement('div');
-      commentDiv.className = 'comment py-2 d-flex justify-content-between align-items-center';  // Make it a flex container
+      commentDiv.className = 'comment py-2 d-flex gap-2 align-items-center';  // Make it a flex container
   
       const commentUser = document.createElement('strong');  
       commentUser.textContent = comment.author.name + ": ";
@@ -422,23 +422,7 @@ function generateProfileCards(data, container, userProfile) {
       commentDiv.appendChild(commentText);
   
       // Check if the comment author's name matches the logged-in user's name
-      if (comment.author.name === userName) {
-          const deleteCommentBtn = document.createElement('button');
-          deleteCommentBtn.className = 'btn btn-link btn-sm text-muted ml-2 delete-comment-btn';
-          const iTrashComment = document.createElement('i');
-          iTrashComment.className = 'fas fa-trash';
-          deleteCommentBtn.appendChild(iTrashComment);
-  
-          // Add an event listener to handle comment deletion
-          deleteCommentBtn.addEventListener('click', function() {
-              // Call your deleteComment function here
-              // Example: deleteComment(comment.id);
-              // If successful, remove the comment div:
-              commentDiv.remove();
-          });
-  
-          commentDiv.appendChild(deleteCommentBtn);  // Append it to the main commentDiv
-      }
+
   
       commentsPanel.appendChild(commentDiv);
   });
