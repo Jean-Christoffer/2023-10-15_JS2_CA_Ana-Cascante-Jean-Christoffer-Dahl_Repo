@@ -3,34 +3,35 @@
   "version": "0.0.1",
   "description": "A starting point for the CSS Frameworks CA project",
   "scripts": {
-    "build": "sass src/scss:dist",
+    "build": "sass src/scss:dist/css",
     "watch": "sass --watch src/scss:dist/css"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/AnaCascante/2023-09-03_CSS_Frameworks_CA_Ana-Cascante_Repo.git"
+    },
+    "keywords": [
+      "CSS",
+      "CSS",
+      "Frameworks",
+      "Bootstrap",
+      "SCSS",
+      "SASS"
+    ],
+    "author": "Ana Cascante <anacas71213@stud.noroff.no>",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/AnaCascante/2023-09-03_CSS_Frameworks_CA_Ana-Cascante_Repo.git/issues"
+    },
+    "homepage": "https://github.com/AnaCascante/2023-09-03_CSS_Frameworks_CA_Ana-Cascante_Repo.git#readme",
+    "main": "index.js",
+    "dependencies": {
+      "bootstrap": "^5.3.1"
+    },
+    "devDependencies": {
+      "sass": "^1.66.1"
     }
+  
     
-  }
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AnaCascante/2023-09-03_CSS_Frameworks_CA_Ana-Cascante_Repo.git"
-  }
-  "keywords": [
-    "CSS",
-    "CSS",
-    "Frameworks",
-    "Bootstrap",
-    "SCSS",
-    "SASS"
-  ],
-  "author": "Ana Cascante <anacas71213@stud.noroff.no>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AnaCascante/2023-09-03_CSS_Frameworks_CA_Ana-Cascante_Repo.git/issues"
-  },
-  "homepage": "https://github.com/AnaCascante/2023-09-03_CSS_Frameworks_CA_Ana-Cascante_Repo.git#readme",
-  "main": "index.js",
-  "dependencies": {
-    "bootstrap": "^5.3.1"
-  },
-  "devDependencies": {
-    "sass": "^1.66.1"
   }
 
