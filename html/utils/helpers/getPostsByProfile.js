@@ -1,9 +1,9 @@
 async function getPostsByProfile(url,name,options){
     try{
-        const data = await fetch(`${url}/social/profiles/${name}/posts`, options);
+        const data = await fetch(`${url}/social/profiles/${name}/posts?_comments=true&_reactions=true&_author=true`, options);
         const response = await data.json();
         
-        return response.filter(i => i.id === 1539 || i.id === 1557) //just until i can delete the duplicates :P
+        return response
         
       } catch(err) {
         console.log(err);

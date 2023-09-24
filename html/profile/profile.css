@@ -1,0 +1,103 @@
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .profile-container .header-image-container .header-image {
+    height: 250px;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .profile-container .header-image-container .profile-image {
+    width: 133px;
+    height: 133px;
+    position: absolute;
+    bottom: -50px;
+    left: 20px;
+    border: 3px solid #212529;
+    z-index: 10;
+    border-radius: 50%;
+  }
+  
+@media(max-width:768px){
+    .profile-container .header-image-container .profile-image{
+        width: 100px;
+        height: 100px;
+    }
+}
+.bio-section{
+    padding-top: 10px;
+}
+  
+  .profile-container .edit-profile-btn {
+    position: absolute;
+    bottom: 90px;
+    right: 0px;
+    border-radius: 20px; 
+    padding: 5px 15px; 
+  }
+
+
+
+  .card {
+    border: none;
+    background-color: #F5F8FA;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 10px 20px;
+}
+
+/* User details */
+.font-weight-bold {
+    font-size: 16px;
+    color: #000000;  /* Twitter's blue color */
+}
+
+/* Tweet title and timestamp */
+h6 {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Icons for interaction */
+.btn-link {
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+.fas.fa-heart {
+    color: #E0245E;
+}
+
+.fas.fa-comment {
+    margin-right: 5px;
+}
+
+/* Hover effects */
+.btn-link:hover, .btn-link:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+.btn-link:hover .fas.fa-heart, .btn-link:focus .fas.fa-heart {
+    color: #E81C4F;
+}
+
+.nav-container{
+    max-width: 600px;
+    margin: auto;
+}
+.custom-btn{
+    border: none;
+}
+.delete-post-btn:hover i {
+    color: red;
+}
+.delete-comment-btn:hover i{
+    color: red;
+}
