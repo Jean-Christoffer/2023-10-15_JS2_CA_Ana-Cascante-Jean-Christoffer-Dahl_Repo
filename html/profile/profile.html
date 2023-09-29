@@ -10,6 +10,8 @@
   <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="profile.css" />
+
+  <script type="module" src="../utils/logout.js"></script>
   <script src="profile.js"  type="module"></script>
 
 </head>
@@ -35,8 +37,8 @@
                     <a class="nav-link" href="/html/profile/profile.html">My profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">log out</a>
-                </li>
+                  <button class="nav-link" tabindex="-1" id="logOut">log out</button>
+              </li>
             </ul>
         </div>
     </nav>
@@ -101,6 +103,9 @@
     <li class="nav-item">
       <a class="nav-link" id="liked-posts-tab" data-bs-toggle="pill" href="#liked-posts">For you</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" id="following-list-tab" data-bs-toggle="pill" href="#following-list">Following</a>
+    </li>
   </ul>
 
   <div class="tab-content mt-4">
@@ -115,6 +120,13 @@
     <div class="tab-pane fade" id="liked-posts" role="tabpanel" aria-labelledby="liked-posts-tab">
       <section class="container mt-5 d-flex flex-column justify-content-center" style="max-width:600px" id="followerPosts">
         <h2 class="text-white mt-2 text-left">Posts by users you follow</h2>
+
+      </section>
+    
+    </div>
+    <div class="tab-pane fade" id="following-list" role="tabpanel" aria-labelledby="following-list">
+      <section class="container mt-5 d-flex flex-column justify-content-center" style="max-width:600px" id="followingList">
+        <h2 class="text-white mt-2 text-left">Users you Follow</h2>
 
       </section>
     

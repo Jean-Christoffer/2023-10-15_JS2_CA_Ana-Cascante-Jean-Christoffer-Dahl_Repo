@@ -7,4 +7,47 @@
 }
 .delete-comment-btn:hover i{
     color: red;
+
 }
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .profile-container .header-image-container .header-image {
+    height: 250px;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .profile-container .header-image-container .profile-image {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    bottom: -40px;
+    left: 20px;
+    border: 3px solid #212529;
+    z-index: 10;
+    border-radius: 50%;
+    background-color: rgb(179, 192, 192);
+  }
+  
+
+  
+  .profile-container {
+    position: absolute;
+    bottom: 90px;
+    right: 0px;
+    border-radius: 20px; 
+    padding: 5px 15px; 
+  }
+.custom-btn{
+    border: none;
+}
+
+
+
+
+}
+

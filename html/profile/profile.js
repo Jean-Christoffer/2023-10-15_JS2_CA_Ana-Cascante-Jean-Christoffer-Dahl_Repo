@@ -7,6 +7,7 @@ import getPostsByProfile from "../utils/helpers/getPostsByProfile.js";
 import reactToPosts from "../utils/helpers/reactToPosts.js";
 import deletePost from "../utils/helpers/deletePost.js";
 import editPost from "../utils/helpers/editPost.js";
+import follow from "../utils/helpers/follow.js";
 // file is getting really big, lots of functions :P will do a propper cleanup later, but it works :P
 
 //stores html id's in a array to escape document.queryselector hell in vanilla js
@@ -26,7 +27,8 @@ const selectors =
     "#profileImageError",
     "#messageForUser",
     "#followerPosts",
-    "#confirmEdit"
+    "#confirmEdit",
+    "#followingList"
 ]
 //i map through the selector array and for each element i document.querySelector it
 const selected = selectors.map(value => document.querySelector(value))
@@ -46,7 +48,8 @@ const [
     profileImageError,
     messageForUser,
     followerPostsContainer,
-    confirmEditBtn
+    confirmEditBtn,
+    followingListContainer
 
 ] = selected
 
@@ -109,6 +112,7 @@ updateMediaForm.addEventListener("submit",async(e) =>{
 } )
 //generates html trying to the best of my ability to stick to functional programming method. 
 async function generateHTML(){
+  //your profile
     const data = await getProfile(baseURL,userName, options)
     //your posts
     const getUserPosts = await getPostByProfile(baseURL,userName,options)
@@ -121,7 +125,7 @@ async function generateHTML(){
     });
   
     const resultsUserPosts = await Promise.all(userPostsFollow);
-    console.log(resultsUserPosts)
+
 
         //get userBio by followed users
         const userBio = data.following.map(async (n) => {
@@ -172,24 +176,44 @@ confirmEditBtn.addEventListener('click', async function(event) {
 });
 
 generateHTML()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // function from hell
 function generateProfileCards(data, container, userProfile) {
 
+  if(userProfile.name === userName){
+    console.log(userProfile)
+    userProfile.following.forEach(follower => {
+      const userCard = document.createElement("div")
+      userCard.classList.add("userCard")
+      const imgContainer = document.createElement("div")
+      imgContainer.classList.add("img-container")
+      const avatar = document.createElement("img")
+      avatar.src = follower.avatar ?? ""
+      imgContainer.append(avatar)
+  
+      const userName = document.createElement("p")
+      userName.classList.add("userName")
+      userName.textContent = follower.name
+      userName.classList.add("text-white")
+  
+      const followButton = document.createElement("button")
+      followButton.classList.add("followBtnUser")
+      followButton.textContent = "Unfollow"
+  
+      followButton.id = follower.name
+  
+      followButton.addEventListener("click", (e)=> {
+        console.log(e.currentTarget)
+        follow(baseURL,follower.name,token,e.currentTarget,"unfollow")
+        userCard.remove()
+        followingCount.textContent --
+      } )
+  
+      userCard.append(imgContainer,userName,followButton)
+      followingListContainer.append(userCard)
+    })
+  }
+
+  
 // this is a big drawback for using vanilla js to create medium-large webapps, it will be much easier working with html and js when you start with frameworks so dont get scared by this horrible long document.create
   data.forEach(element => {
  
@@ -306,7 +330,12 @@ function generateProfileCards(data, container, userProfile) {
 
     const spanLike = document.createElement('span');
     spanLike.id = `likeCount${element.id}`;
-    spanLike.textContent = element._count.reactions;
+
+    const thumbReaction = element?.reactions?.find(
+      (reaction) => reaction.symbol === "👍"
+    );
+    const count = thumbReaction?.count;
+    spanLike.textContent = count;
     btnLike.appendChild(spanLike);
 
     //edit btn
@@ -444,8 +473,3 @@ function generateProfileCards(data, container, userProfile) {
     container.appendChild(card);
   });
 }
-
-
-
-
-

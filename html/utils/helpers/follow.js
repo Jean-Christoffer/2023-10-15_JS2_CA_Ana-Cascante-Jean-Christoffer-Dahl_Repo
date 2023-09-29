@@ -1,24 +1,30 @@
-async function follow(url,userName,options){
+async function follow(url,userName,token,btn, follow_Unfollow = "follow"){
     try{
-      const response = await fetch(`${url}/social/profiles/${userName}/follow`,options)
+      const response = await fetch(`${url}/social/profiles/${userName}/${follow_Unfollow}`,
+      {
+        method:"PUT",
+        headers: {
+            Authorization: `Bearer ${token}`,
+      
+          },
+        }
+      )
       const responseData = await response.json()
-
-      return responseData;
+      if(response.ok && follow_Unfollow !== "unfollow" ){
+        btn.disabled = true
+        btn.textContent = "Followed!"
+      }
+      console.log(responseData)
+     if(!response.ok){
+      btn.textContent = responseData.errors[0].message
+    
+     }
+      
     } catch(err){
         console.log(err)
     }
 
   }
-  /*
-  //for put request you dont need to use application.json
-  const followOpt = {
-  method:"PUT",
-  headers: {
-      Authorization: `Bearer ${token}`,
 
-    },
-
-}
-  */
 
   export default follow
