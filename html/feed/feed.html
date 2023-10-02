@@ -117,22 +117,71 @@
       </div>
     </div>
   </div>
+    <!--MODAL FOR  POST BY ID AND COMMENTS: )-->
+    <div class="modal fade" id="postId" tabindex="-1" aria-labelledby="postId" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content card">
+                <div class="card-header">
+                    <img class="card-profile-img" src="" id="post-card-modal-img">
+                    <div class="userInfo">
+                        <p class="name" id="modalUserName"></p>
+                        <p class="handle" id="modalUserHandle"></p>
+                    </div>
+                    <p class="time" id="modalTimeAgo"></p>
+                    <div class="user-buttons"></div>
+                </div>
+                <div class="card-body">
+                    <article class="card-body-content">
+                        <h5 id="modalTitle"></h5>
+                        <p id="modalBody"></p>
+                    </article>
+                </div>
+                <div class="card-content-img-container">
+                    <img id="modalImageSrc" src="">
+                </div>
+                <div class="reaction-container">
+                    <button id="modalLikeBtn"><i class="fas fa-heart"></i><span id="modalLikeCount"></span></button>
+                    <button id="modalCommentBtn"><i class="fas fa-comment"></i><span id="commentCount">0</span></button>
+                </div>
+                <div class="comments-section mt-3">
+                    <h5>Comments</h5>
+                    <div class="comments-list" id="commentSectionModal">
+                        <!-- Comments will be populated here -->
+                    </div>
+                
+                    <form id="modalCommentForm">
+                        <div class="input-group mt-2">
+                            <input type="text" id="modalCommentInput" class="form-control" placeholder="Write a comment..." >
+                            <div class="input-group-append mx-1">
+                                <button class="btn btn-primary" type="submit">Post</button>
+                            </div>
+                        </div>
+                    </form>
+               
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+
   <!--Modal for userBio-->
   <div class="profile-container">
     <div class="modal" tabindex="-1" id="userProfileModal">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="header-image-container position-relative">
-                        <img src="/img/lion2.jpg" class="w-100 header-image" alt="Header Image" id="modalHeaderImg">
-                        <img src="/img/lion2.jpg" id="modalProfileImg" class="profile-image" alt="Profile Image">
+            <div class="modal-content custom-modal-content">
+                <div class="modal-body custom-modal-body">
+                    <div class="custom-modal-body">
+                        <img src="/img/lion2.jpg" class="custom-modal-image" alt="Header Image" id="modalHeaderImg">
+                        <img src="/img/lion2.jpg" id="modalProfileImg" class="custom-modal-profile-img" alt="Profile Image">
                     </div>
                  
                     
                 </div>
          
                 <div class="bio-section text-left bg-dark ">
-                    <div class="mt-4">
+                    <div class="mt-4 custom-body-container">
                         <h3 class="username text-white px-2" id="username"></h3>
                         <p class="following-info text-warning badge">Following <span class="badge bg-primary rounded-pill" id="followingCount">0</span></p>
                         <p class="followers-info text-warning badge">Followers <span class="badge bg-primary rounded-pill" id="followersCount">0</span></p>

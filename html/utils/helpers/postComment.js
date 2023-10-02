@@ -1,4 +1,4 @@
-async function postComment(url,id,comment,token,commentCount,orgData){
+async function postComment(url,id,comment,token){
     try{
         const response = await fetch(`${url}/social/posts/${id}/comment`,
         {
@@ -14,17 +14,8 @@ async function postComment(url,id,comment,token,commentCount,orgData){
             })
         
         });
-        if (response.ok) {
-       
-   
-            commentCount.textContent ++
-
-        } else {
-            console.error('Failed to update the like count on the server.');
-        }
-        
-
-        
+        const data = await response.json()     
+        return data
       } catch(err) {
         console.log(err);
       }
