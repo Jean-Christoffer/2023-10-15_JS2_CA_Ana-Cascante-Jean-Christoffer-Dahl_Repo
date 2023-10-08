@@ -57,7 +57,7 @@ const
 async function getPosts(headerOptions) {
   try {
     const response = await fetch(
-      `${baseURL}/social/posts?_author=true&_comments=true&_reactions=true`,
+      `${baseURL}/social/posts?_author=true&_comments=true&_reactions=true&limit=100`,
       headerOptions
     );
     const posts = await response.json();
@@ -113,7 +113,7 @@ confirmEdit.addEventListener('click', async function(event) {
   let updatedBody = document.querySelector('#editBody').value;
 
   const response = await editPost(baseURL,postId,updatedTitle,updatedBody, token);
-  console.log(response)
+
   if(response.updated > response.created) {
 
     const postCard = document.getElementById(postId);
@@ -214,6 +214,26 @@ function createCommentElement(comment) {
   authorElem.textContent = comment.owner + ":";
 
   return [authorElem, commentElem];
+}
+
+
+document.getElementById("searchInput").addEventListener("input", function() {
+  const searchValue = document.getElementById("searchInput").value.toLowerCase();
+  searchPosts(searchValue);
+});
+function searchPosts(query) {
+  getPosts(options).then(data => {
+      const filteredData = data.filter(post => 
+          post.author?.name.toLowerCase().includes(query) ||
+          post.title.toLowerCase().includes(query) ||
+          post.body.toLowerCase().includes(query)
+      );
+
+      // Clear the existing posts from the container before displaying filtered results
+      feedContainer.textContent = '';
+
+      generateProfileCards(filteredData, feedContainer);
+  });
 }
 
 function generateProfileCards(data, container) {
