@@ -6,7 +6,7 @@ import editPost from "../utils/helpers/editPost.js";
 import getProfile from "../utils/helpers/getProfile.js";
 import follow from "../utils/helpers/follow.js";
 import createPost from "../utils/helpers/createPosts.js";
-
+import { getStartAndEndDatesForLastThreeDays, getStartAndEndDatesForToday } from "../utils/helpers/timeIsFun.js";
 let token;
 const baseURL = "https://api.noroff.dev/api/v1";
 let userName;
@@ -216,7 +216,7 @@ function createCommentElement(comment) {
   return [authorElem, commentElem];
 }
 
-
+//search
 document.getElementById("searchInput").addEventListener("input", function() {
   const searchValue = document.getElementById("searchInput").value.toLowerCase();
   searchPosts(searchValue);
@@ -235,6 +235,59 @@ function searchPosts(query) {
       generateProfileCards(filteredData, feedContainer);
   });
 }
+
+//filter
+
+document.getElementById("filterSelect").addEventListener("change", function() {
+  const filterValue = this.value;
+  filterPosts(filterValue);
+});
+
+// Officer Jean is on the case
+function filterPosts(criteria) {
+  getPosts(options).then(data => {
+      let filteredData;
+      switch (criteria) {
+          case 'all':
+              filteredData = data;
+              break;
+          case 'lastThreeDays':
+              const [startThreeDays, endThreeDays] = getStartAndEndDatesForLastThreeDays();
+              filteredData = data.filter(post => {
+                  const postDate = new Date(post.created);
+                  return postDate >= startThreeDays && postDate <= endThreeDays;
+              });
+              break;
+          case 'today':
+              const [startToday, endToday] = getStartAndEndDatesForToday();
+              filteredData = data.filter(post => {
+                  const postDate = new Date(post.created);
+                  return postDate >= startToday && postDate <= endToday;
+              });
+              break;
+          case 'withImages':
+              filteredData = data.filter(post => post.media);
+              break;
+          case 'withoutImages':
+              filteredData = data.filter(post => !post.media);
+              break;
+          case 'withComments':
+              filteredData = data.filter(post => post._count.comments > 0);
+              break;
+          case 'withoutComments':
+              filteredData = data.filter(post => post._count.comments === 0);
+              break;
+          default:
+              filteredData = data;
+      }
+
+      // Clear the existing posts from the container before displaying filtered results
+      feedContainer.innerHTML = '';
+
+      generateProfileCards(filteredData, feedContainer, userName);
+  });
+}
+
 
 function generateProfileCards(data, container) {
   
@@ -337,6 +390,11 @@ function generateProfileCards(data, container) {
     commentButton.setAttribute("data-bs-toggle", "modal");
     commentButton.setAttribute("data-bs-target", "#postId");
 
+
+function submitHandler(e, element, spanComment, commentCountModal, commentSectionModal) {
+    e.preventDefault();
+    handleFormSubmit(e, element, spanComment, commentCountModal, commentSectionModal);
+}
     //modal for post with commentSection
     commentButton.addEventListener('click', function() {
       const modal = document.querySelector('#postId');
@@ -360,9 +418,13 @@ function generateProfileCards(data, container) {
       commentSectionModal.textContent = '';
 
       appendCommentsToModal(element.comments, commentSectionModal);
-  
-      commentForm.removeEventListener("submit", (e) => handleFormSubmit(e, element,spanComment,commentCountModal,commentSectionModal));
-      commentForm.addEventListener("submit", (e) => handleFormSubmit(e, element, spanComment, commentCountModal, commentSectionModal));
+      if (commentForm.localSubmitHandler) {
+        commentForm.removeEventListener("submit", commentForm.localSubmitHandler);
+    }
+    commentForm.localSubmitHandler = (e) => submitHandler(e, element, spanComment, commentCountModal, commentSectionModal);
+
+    
+      commentForm.addEventListener("submit", commentForm.localSubmitHandler);
     
   });
     //commentIcon

@@ -358,33 +358,43 @@ function generateProfileCards(data, container, userProfile) {
     commentButton.setAttribute("data-bs-target", "#postId");
 
     //modal for post with commentSection
-    commentButton.addEventListener('click', function() {
-      const modal = document.querySelector('#postId');
-      const modalProfileImg = modal.querySelector('#post-card-modal-img');
-      const modalUserName = modal.querySelector("#modalUserName")
-      const modalHandle = modal.querySelector("#modalUserHandle")
-      const modalPostImg = modal.querySelector('#modalImageSrc');
-      const modalTitle = modal.querySelector('#modalTitle');
-      const modalBody = modal.querySelector('#modalBody');
-      const commentCountModal = modal.querySelector("#commentCount");
-      const commentForm = modal.querySelector("#modalCommentForm");
-      const commentSectionModal = modal.querySelector("#commentSectionModal");
-  
-      modalProfileImg.src = element.author?.avatar ?? "../../img/lion2.jpg";
-      modalUserName.textContent = element.author?.name
-      modalHandle.textContent = "@ "+ element.author?.name
-      modalPostImg.src = element.media ?? "../../img/lion2.jpg";
-      modalTitle.textContent = element.title;
-      modalBody.textContent = element.body;
-      commentCountModal.textContent = element._count.comments;
-      commentSectionModal.textContent = '';
 
-      appendCommentsToModal(element.comments, commentSectionModal);
-  
-      commentForm.removeEventListener("submit", (e) => handleFormSubmit(e, element,spanComment,commentCountModal,commentSectionModal));
-      commentForm.addEventListener("submit", (e) => handleFormSubmit(e, element, spanComment, commentCountModal, commentSectionModal));
+    function submitHandler(e, element, spanComment, commentCountModal, commentSectionModal) {
+      e.preventDefault();
+      handleFormSubmit(e, element, spanComment, commentCountModal, commentSectionModal);
+  }
+      //modal for post with commentSection
+      commentButton.addEventListener('click', function() {
+        const modal = document.querySelector('#postId');
+        const modalProfileImg = modal.querySelector('#post-card-modal-img');
+        const modalUserName = modal.querySelector("#modalUserName")
+        const modalHandle = modal.querySelector("#modalUserHandle")
+        const modalPostImg = modal.querySelector('#modalImageSrc');
+        const modalTitle = modal.querySelector('#modalTitle');
+        const modalBody = modal.querySelector('#modalBody');
+        const commentCountModal = modal.querySelector("#commentCount");
+        const commentForm = modal.querySelector("#modalCommentForm");
+        const commentSectionModal = modal.querySelector("#commentSectionModal");
     
-  });
+        modalProfileImg.src = element.author?.avatar ?? "../../img/lion2.jpg";
+        modalUserName.textContent = element.author?.name
+        modalHandle.textContent = "@ "+ element.author?.name
+        modalPostImg.src = element.media ?? "../../img/lion2.jpg";
+        modalTitle.textContent = element.title;
+        modalBody.textContent = element.body;
+        commentCountModal.textContent = element._count.comments;
+        commentSectionModal.textContent = '';
+  
+        appendCommentsToModal(element.comments, commentSectionModal);
+        if (commentForm.localSubmitHandler) {
+          commentForm.removeEventListener("submit", commentForm.localSubmitHandler);
+      }
+      commentForm.localSubmitHandler = (e) => submitHandler(e, element, spanComment, commentCountModal, commentSectionModal);
+  
+      
+        commentForm.addEventListener("submit", commentForm.localSubmitHandler);
+      
+    });
     //commentIcon
     const iComment = document.createElement("i");
     iComment.className = "fas fa-comment";
