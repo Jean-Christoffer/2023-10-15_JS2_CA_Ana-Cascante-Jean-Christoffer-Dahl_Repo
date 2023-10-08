@@ -1,4 +1,4 @@
-async function editPost(url,id,newInfo,titleInfo,token){
+async function editPost(url,id,titleInfo,bodyInfo,token){
     try{
         const response = await fetch(`${url}/social/posts/${id}`,
         {
@@ -10,11 +10,12 @@ async function editPost(url,id,newInfo,titleInfo,token){
         
             body:JSON.stringify({
                 "title":titleInfo,
-              "body": newInfo
+                 "body": bodyInfo
              
             })
         
         });
+        console.log(response)
         if (response.ok) {
        
             const data = await response.json()

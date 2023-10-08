@@ -48,7 +48,7 @@ const [
     profileImageError,
     messageForUser,
     followerPostsContainer,
-    confirmEditBtn,
+    confirmEdit,
     followingListContainer
 
 ] = selected
@@ -149,7 +149,7 @@ async function generateHTML(){
 }
 // edit function for editing post, uses data-attributes to get the post id from your posts
 
-confirmEditBtn.addEventListener('click', async function(event) {
+confirmEdit.addEventListener('click', async function(event) {
 
   const postId = event.currentTarget.getAttribute('data-post-id');
   let modal = bootstrap.Modal.getInstance(document.querySelector('#editPostModal'));
@@ -161,8 +161,8 @@ confirmEditBtn.addEventListener('click', async function(event) {
   if(response.updated > response.created) {
 
     const postCard = document.getElementById(postId);
-    const titleElement = postCard.querySelector('span');
-    const bodyElement = postCard.querySelector('.card-text');
+    const titleElement = postCard.querySelector('.card-body-content h5');
+    const bodyElement = postCard.querySelector('.card-body-content p');
 
     titleElement.textContent = updatedTitle;
     bodyElement.textContent = updatedBody;
@@ -175,12 +175,62 @@ confirmEditBtn.addEventListener('click', async function(event) {
 
 });
 
+async function handleFormSubmit(e, element, spanComment, commentCountModal, commentSectionModal) {
+  e.preventDefault();
+
+  const commentInputElement = document.getElementById("modalCommentInput");
+  const commentTextValue = commentInputElement.value; // get the value from the input element
+
+  if (commentTextValue) {
+      const data = await postComment(baseURL, element.id, commentTextValue, token); // pass the value, not the element
+      if (data) {
+          // Update the local dataset with the new comment
+          const newComment = {
+              body: commentTextValue,
+              owner: userName
+          };
+          element.comments.push(newComment);
+
+          // Create and display the new comment in the modal
+          const [author, commentElem] = createCommentElement(newComment);
+          commentSectionModal.append(author, commentElem);
+
+          // Clear the input field for the next comment
+          commentInputElement.value = ''; // clear the input's value
+          
+          // Update the comments count
+          let currentCount = parseInt(spanComment.textContent, 10);
+          commentCountModal.textContent = currentCount + 1;
+          spanComment.textContent = currentCount + 1;
+      } else {
+          console.error("Failed to post the comment.");
+      }
+  }
+}
+// will be moved to utilsFolder
+function appendCommentsToModal(comments, commentSectionModal) {
+  comments.forEach(comment => {
+      const [author, commentElem] = createCommentElement(comment);
+      commentSectionModal.append(author, commentElem);
+  });
+}
+// will be moved to utilsFolder
+function createCommentElement(comment) {
+  const commentElem = document.createElement("p");
+  const authorElem = document.createElement("h6");
+
+  commentElem.textContent = comment.body;
+  authorElem.textContent = comment.owner + ":";
+
+  return [authorElem, commentElem];
+}
+
 generateHTML()
 // function from hell
 function generateProfileCards(data, container, userProfile) {
 
   if(userProfile.name === userName){
-    console.log(userProfile)
+ 
     userProfile.following.forEach(follower => {
       const userCard = document.createElement("div")
       userCard.classList.add("userCard")
@@ -214,261 +264,191 @@ function generateProfileCards(data, container, userProfile) {
   }
 
   
-// this is a big drawback for using vanilla js to create medium-large webapps, it will be much easier working with html and js when you start with frameworks so dont get scared by this horrible long document.create
-  data.forEach(element => {
- 
-    const card = document.createElement('div');
-    card.className = 'card mb-3 w-100 p-2';
+
+  data.forEach((element) => {
+    //cardContainer
+    const card = document.createElement("div");
+    card.className = "card";
     card.id = element.id;
 
-    const row = document.createElement('div');
-    row.className = 'row g-0';
-
-    const colImage = document.createElement('div');
-    colImage.className = 'col-md-auto py-2 pl-3';
-    const userImg = document.createElement('img');
-    userImg.src = userProfile.avatar ?? "../../img/lion2.jpg";
-    userImg.className = 'rounded-circle img-fluid';
-    userImg.style = 'width: 50px; height: 50px; display: block;';
-    colImage.appendChild(userImg);
-
-    const colContent = document.createElement('div');
-    colContent.className = 'col-md-10';
-    const cardBody = document.createElement('div');
-    cardBody.className = 'card-body';
-
-    // Username and Timestamp
-    const usernameAndTimeDiv = document.createElement('div');
-    usernameAndTimeDiv.className =  'd-flex justify-content-start align-items-center mb-2';
-
-    const usernameSpan = document.createElement('h6');
-    usernameSpan.textContent = userProfile.name.charAt(0).toUpperCase() + userProfile.name.slice(1)
-    usernameSpan.className = 'font-weight-bold mr-2';
-    usernameSpan.style.marginRight = "auto";
-    const smallTime = document.createElement('small');
-    smallTime.className = 'text-muted';
-    smallTime.textContent = timeStamp(element.created);
-    smallTime.style.marginRight = "10px"
-    usernameAndTimeDiv.appendChild(usernameSpan);
-    usernameAndTimeDiv.appendChild(smallTime);
+    //container for card header
+    const cardHeader = document.createElement("div");
+    cardHeader.className = "card-header";
 
 
-    //deleteButtonPost
+    //authorAvatar
+    const cardProfileImage = document.createElement("img")
+    cardProfileImage.className = "card-profile-img"
+    cardProfileImage.src= element.author?.avatar ?? "../../img/lion2.jpg";
 
-    if (userName === userProfile.name) {
-      const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'btn btn-link btn-sm text-muted ml-auto delete-post-btn';
-      const iTrash = document.createElement('i');
-      iTrash.className = 'fas fa-trash';
-      deleteBtn.appendChild(iTrash);
-      usernameAndTimeDiv.appendChild(deleteBtn);
-  
-      // Optionally, you can add an event listener to the delete button to perform an action.
-      deleteBtn.addEventListener('click', async function() {
-        const response = await deletePost(baseURL,element.id,token);
-        if(response && response.ok) {
-   
-            card.remove();
-        }
-      });
-  }
+    //Author
+    const cardName = document.createElement("p")
+    cardName.className = "name"
+    cardName.textContent = element.author?.name.charAt(0).toUpperCase() +
+    element.author?.name.slice(1);
 
-    cardBody.appendChild(usernameAndTimeDiv);
+    //Handle
+    const userHandle = document.createElement("p")
+    userHandle.className = "handle"
+    userHandle.textContent = "@" + element.author?.name
 
+    //timeStamp
+    const timeStampCreated  = document.createElement("p")
+    timeStampCreated.className = "time"
+    timeStampCreated.textContent = timeStamp(element.created);
 
+    //container for time,name,handle
+    const userInfo = document.createElement("div")
+    userInfo.className = "userInfo"
 
-    // Post Title
-    const pTitle = document.createElement('p');
-    pTitle.className = ' d-flex justify-content-between';
-    const spanTitle = document.createElement('span');
-    spanTitle.textContent = element.title;
-    pTitle.appendChild(spanTitle);
-    cardBody.appendChild(pTitle);
+    //Container for CardBody
+    const cardBodyContainer = document.createElement("div")
+    cardBodyContainer.className = "card-body"
 
-    // Post Body
-    const p = document.createElement('p');
-    p.className = 'card-text ';
-    p.textContent = element.body;
+    //Content for cardBody
+    const cardBodyContent = document.createElement("article")
+    cardBodyContent.className = "card-body-content"
 
-    if (element.media) {
-      const mediaWrapper = document.createElement('div');
-      mediaWrapper.className = "w-100";
+    //postTitle
+    const cardTitle = document.createElement("h5")
+    cardTitle.textContent = element.title
 
-      const postMedia = document.createElement("img");
-      postMedia.src = element.media;
-      postMedia.className = "rounded img-fluid";
-      
-      mediaWrapper.appendChild(postMedia);
-      cardBody.appendChild(mediaWrapper);
+    //postContent
+    const cardContentPost = document.createElement("p")
+    cardContentPost.textContent =  element.body
+
+    //mediaPostContainer
+    const postImgContainer = document.createElement("div")
+    postImgContainer.className = "card-content-img-container"   
+    if(element.media){
+
+    //postImg
+    const postImg = document.createElement("img")
+    postImg.src = element.media
+    postImgContainer.append(postImg)
     }
-    cardBody.append(p);
 
+    const reactionContainer = document.createElement("div")
+    reactionContainer.className = "reaction-container"
 
+    //likeButton
+    const likeBtn = document.createElement("button")
+    const iLike = document.createElement("i")
+    iLike.className = "fas fa-heart"
 
-
-
-
-    //more buttons
-    const btnGroup = document.createElement('div');
-    btnGroup.className = 'd-flex';
-
-    const btnComment = document.createElement('button');
-    btnComment.className = 'btn btn-link btn-sm text-muted';
-    const iComment = document.createElement('i');
-    iComment.className = 'fas fa-comment';
-    btnComment.appendChild(iComment);
-    const spanComment = document.createElement('span');
-    spanComment.id = 'commentCount';
-    spanComment.textContent = element._count.comments;
-    btnComment.appendChild(spanComment);
-
-    const btnLike = document.createElement('button');
-    btnLike.className = 'btn btn-link btn-sm text-muted';
-    const iLike = document.createElement('i');
-    iLike.className = 'fas fa-heart text-danger';
-    btnLike.appendChild(iLike);
-
-    const spanLike = document.createElement('span');
+    //likeCount
+    const spanLike = document.createElement("span");
     spanLike.id = `likeCount${element.id}`;
 
     const thumbReaction = element?.reactions?.find(
-      (reaction) => reaction.symbol === "👍"
+          (reaction) => reaction.symbol === "👍"
     );
     const count = thumbReaction?.count;
     spanLike.textContent = count;
-    btnLike.appendChild(spanLike);
+    
 
-    //edit btn
-    if(userName === element.author.name){
-        const btnEdit = document.createElement('button');
-        btnEdit.className = 'btn btn-link btn-sm text-muted';
-        const iEdit = document.createElement('i');
-        iEdit.className = 'fas fa-edit';  // Font Awesome icon for edit
-        btnEdit.appendChild(iEdit);
-        const spanEdit = document.createElement('span');
-        spanEdit.textContent = " Edit";
-        btnEdit.setAttribute('data-post-id', element.id);
-        confirmEditBtn.setAttribute('data-post-id', element.id);
-          btnEdit.appendChild(spanEdit);
-      
-        // Add an event listener to handle post editing
-        btnEdit.addEventListener('click', function() {
-
-
-            document.getElementById('editTitle').value = element.title;
-            document.getElementById('editBody').value = element.body;
-            
-            var modal = new bootstrap.Modal(document.getElementById('editPostModal'));
-          modal.show();
-
+    likeBtn.addEventListener("click", (e) => {
+      reactToPosts(baseURL, element.id, token, spanLike);
     });
-    btnGroup.appendChild(btnEdit);  
-}
-
-    //likeButton eventListener
-    btnLike.addEventListener("click",(e)=>{
-      reactToPosts(baseURL,element.id,token,spanLike)
- 
-    })
-    
-    btnGroup.appendChild(btnComment);
-    btnGroup.appendChild(btnLike);
- 
-    cardBody.appendChild(btnGroup);
-
-    colContent.appendChild(cardBody);
-
-    row.appendChild(colImage);
-    row.appendChild(colContent);
-
-    card.appendChild(row);
-
-
-    //commentSection
-    const commentCollapse = document.createElement('div');
-    commentCollapse.className = 'collapse mt-3';
-    commentCollapse.id = `commentCollapse${element.id}`;
-    
-    // Create the form
-    const commentForm = document.createElement('form');
-
-
-    
-    const commentInput = document.createElement('input');
-    commentInput.className = 'form-control';
-    commentInput.type = 'text';
-    commentInput.placeholder = 'Write a reply...';
-    commentForm.appendChild(commentInput); // Append to form instead
-    
-    // Add a hidden submit button. This allows users to press Enter to submit.
-    const hiddenSubmitButton = document.createElement('button');
-    hiddenSubmitButton.style.display = 'none';
-    commentForm.appendChild(hiddenSubmitButton);
-    
-    commentForm.addEventListener("submit", (e) => {
-      e.preventDefault()
-        const commentText = commentInput.value;
-        if (commentText) {
-
-            postComment(baseURL,element.id,commentText,token,spanComment,element);
-
-            commentInput.value = '';
-          
-        }
-    
-
-
-      
-    })
-    commentCollapse.appendChild(commentForm);
-    
-    // Modify btnComment to control the collapse of comment section
-    btnComment.setAttribute('data-bs-toggle', 'collapse');
-    btnComment.setAttribute('data-bs-target', `#commentCollapse${element.id}`);
-    btnComment.setAttribute('aria-expanded', 'false');
-    btnComment.setAttribute('aria-controls', `commentCollapse${element.id}`);
-    
-    cardBody.appendChild(commentCollapse);
-
-    //commentSectionPanel to store comments..
-
-
-
-    const commentsPanel = document.createElement('div');
-    commentsPanel.className = 'comments-panel border-top mt-2';
-    commentsPanel.style.display = 'none'; // Initially hide the panel
-
-    element.comments.forEach(comment => { 
-      const commentDiv = document.createElement('div');
-      commentDiv.className = 'comment py-2 d-flex gap-2 align-items-center';  // Make it a flex container
-  
-      const commentUser = document.createElement('strong');  
-      commentUser.textContent = comment.author.name + ": ";
-      commentDiv.appendChild(commentUser);
-  
-      const commentText = document.createElement('span');  
-      commentText.textContent = comment.body;
-      commentDiv.appendChild(commentText);
-  
-      // Check if the comment author's name matches the logged-in user's name
 
   
-      commentsPanel.appendChild(commentDiv);
+    //commentButton, this will open the postId : (
+    const commentButton = document.createElement("button")
+    commentButton.setAttribute("data-bs-toggle", "modal");
+    commentButton.setAttribute("data-bs-target", "#postId");
+
+    //modal for post with commentSection
+    commentButton.addEventListener('click', function() {
+      const modal = document.querySelector('#postId');
+      const modalProfileImg = modal.querySelector('#post-card-modal-img');
+      const modalUserName = modal.querySelector("#modalUserName")
+      const modalHandle = modal.querySelector("#modalUserHandle")
+      const modalPostImg = modal.querySelector('#modalImageSrc');
+      const modalTitle = modal.querySelector('#modalTitle');
+      const modalBody = modal.querySelector('#modalBody');
+      const commentCountModal = modal.querySelector("#commentCount");
+      const commentForm = modal.querySelector("#modalCommentForm");
+      const commentSectionModal = modal.querySelector("#commentSectionModal");
+  
+      modalProfileImg.src = element.author?.avatar ?? "../../img/lion2.jpg";
+      modalUserName.textContent = element.author?.name
+      modalHandle.textContent = "@ "+ element.author?.name
+      modalPostImg.src = element.media ?? "../../img/lion2.jpg";
+      modalTitle.textContent = element.title;
+      modalBody.textContent = element.body;
+      commentCountModal.textContent = element._count.comments;
+      commentSectionModal.textContent = '';
+
+      appendCommentsToModal(element.comments, commentSectionModal);
+  
+      commentForm.removeEventListener("submit", (e) => handleFormSubmit(e, element,spanComment,commentCountModal,commentSectionModal));
+      commentForm.addEventListener("submit", (e) => handleFormSubmit(e, element, spanComment, commentCountModal, commentSectionModal));
+    
   });
-    cardBody.appendChild(commentsPanel);
+    //commentIcon
+    const iComment = document.createElement("i");
+    iComment.className = "fas fa-comment";
 
-    btnComment.addEventListener('click', function() {
-        if(commentsPanel.style.display === 'none') {
-            commentsPanel.style.display = 'block';
-        } else {
-            commentsPanel.style.display = 'none';
+    //commentCount
+    const spanComment = document.createElement("span");
+    spanComment.textContent = element._count.comments;
+
+    //extraFuncs if you are the author    
+    const specialFunctions = document.createElement("div")
+    specialFunctions.className="user-buttons"
+
+    if (userName === element.author?.name) {
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "deletePostBtn"
+
+      const iTrash = document.createElement("i");
+      iTrash.className = "fas fa-trash";
+      deleteBtn.append(iTrash);
+      specialFunctions.append(deleteBtn)
+
+      deleteBtn.addEventListener("click", async function () {
+        const response = await deletePost(baseURL, element.id, token);
+        if (response && response.ok) {
+          card.remove();
         }
-    });
+      });
 
+    }
 
+    if (userName === element.author.name) {
+      const btnEdit = document.createElement("button");
+      btnEdit.className = "edit-post-btn";
+      btnEdit.textContent = "Edit"
 
+      btnEdit.setAttribute("data-post-id", element.id);
+      confirmEdit.setAttribute("data-post-id", element.id);
 
+      // Listener to handle post editing
+      btnEdit.addEventListener("click", function () {
+        document.getElementById("editTitle").value = element.title;
+        document.getElementById("editBody").value = element.body;
 
+        var modal = new bootstrap.Modal(
+          document.getElementById("editPostModal")
+        );
+        modal.show();
+      });
+      specialFunctions.append(btnEdit);
+    }
+    //everyone gets a appending :s
+    likeBtn.append(iLike,spanLike)
+    commentButton.append(iComment,spanComment);
+
+    userInfo.append(cardName,userHandle)
+    cardBodyContent.append(cardTitle,cardContentPost)
+
+    reactionContainer.append(likeBtn, commentButton)
+    cardBodyContainer.append(cardBodyContent)
+    cardHeader.append(cardProfileImage,userInfo,timeStampCreated,specialFunctions)
+
+    //append the containers
+    card.append(cardHeader,cardBodyContainer,postImgContainer,reactionContainer)
 
     container.appendChild(card);
   });

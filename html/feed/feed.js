@@ -105,33 +105,30 @@ createPostForm.addEventListener('submit', async (e) => {
 });
 
 
-confirmEdit .addEventListener("click", async function (event) {
-  const postId = event.currentTarget.getAttribute("data-post-id");
-  let modal = bootstrap.Modal.getInstance(
-    document.querySelector("#editPostModal")
-  );
-  let updatedTitle = document.querySelector("#editTitle").value;
-  let updatedBody = document.querySelector("#editBody").value;
+confirmEdit.addEventListener('click', async function(event) {
 
-  const response = await editPost(
-    baseURL,
-    postId,
-    updatedTitle,
-    updatedBody,
-    token
-  );
+  const postId = event.currentTarget.getAttribute('data-post-id');
+  let modal = bootstrap.Modal.getInstance(document.querySelector('#editPostModal'));
+  let updatedTitle = document.querySelector('#editTitle').value;
+  let updatedBody = document.querySelector('#editBody').value;
 
-  if (response.updated > response.created) {
+  const response = await editPost(baseURL,postId,updatedTitle,updatedBody, token);
+  console.log(response)
+  if(response.updated > response.created) {
+
     const postCard = document.getElementById(postId);
-    const titleElement = postCard.querySelector("span");
-    const bodyElement = postCard.querySelector(".card-text");
+    const titleElement = postCard.querySelector('.card-body-content h5');
+    const bodyElement = postCard.querySelector('.card-body-content p');
 
     titleElement.textContent = updatedTitle;
     bodyElement.textContent = updatedBody;
     updatedTitle = "";
     updatedBody = "";
-    modal.hide();
+    modal.hide(); 
   }
+
+  
+
 });
 
 

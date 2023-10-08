@@ -131,3 +131,108 @@ h6 {
 .userName{
     margin: 0;
 }
+
+
+
+.custom-container{
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+button{
+  cursor: pointer;
+}
+
+
+/*newCardsPosts*/
+.card{
+  max-width: 600px;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 20px;
+
+}
+.card-header{
+  display: flex;
+  margin-bottom: 10px;
+  background: none !important;
+  border: none;
+
+}
+.card-profile-img{
+  width: 50px;
+  height: 50px;
+  border-radius: 999px;
+  margin-right: 10px;
+  display: block;
+}
+.userInfo{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.name{
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+.handle, .time{
+  color: #657786;
+}
+.time{
+
+  margin-left: auto;
+  width: 80px;
+}
+
+.card-body-content{
+  margin: 10px 0;
+}
+.card-content-img-container{
+  overflow: hidden;
+}
+.card-content-img-container img, #modalImageSrc{
+  width: 100%;
+  border-radius: 10px;
+  max-height: 400px;
+  object-fit: cover;
+
+}
+.card-body{
+  max-width: 500px;
+
+}
+.reaction-container{
+  display: flex;
+  gap: 20px;
+  margin-top: 5px;
+  width: 100%;
+}
+.reaction-container button{
+  background: none;
+  border: none;
+
+}
+.fa-comment{
+  padding-right: 3px;
+}
+.fa-heart{
+  color: red;
+  padding-right: 3px;
+}
+
+
+.deletePostBtn{
+  background: none;
+  border: none;
+}
+.deletePostBtn:hover{
+  color: red;
+}
+.edit-post-btn{
+  border-radius: 999px;
+  border:none;
+  background: #ffc107;
+  font-weight: bold;
+  padding: 5px;
+
+}
