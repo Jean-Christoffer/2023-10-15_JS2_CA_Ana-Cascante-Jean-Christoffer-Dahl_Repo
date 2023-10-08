@@ -5,6 +5,7 @@ import deletePost from "../utils/helpers/deletePost.js";
 import editPost from "../utils/helpers/editPost.js";
 import getProfile from "../utils/helpers/getProfile.js";
 import follow from "../utils/helpers/follow.js";
+import createPost from "../utils/helpers/createPosts.js";
 
 let token;
 const baseURL = "https://api.noroff.dev/api/v1";
@@ -34,7 +35,7 @@ const cssSelectors =
 "#followingCount",
 "#followersCount",
 "#followModalButton",
-"#commentSectionModal"
+"#createPostForm"
 
 ]
 const querySelectors = cssSelectors.map(value => document.querySelector(value))
@@ -48,7 +49,8 @@ const
  followingCount,
  followersCount,
  followModalButton,
- commentSectionModal
+ createPostForm
+ 
 
 ] = querySelectors
 
@@ -73,8 +75,34 @@ async function generatePage() {
   }
 }
 
+function showSnackbar() {
+  const snackbar = document.getElementById("snackbar");
+  snackbar.className = "show";
+  setTimeout(() => {
+      snackbar.className = snackbar.className.replace("show", "");
+  }, 3000); // This will hide the snackbar after 3 seconds
+}
+createPostForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const formData = new FormData(e.target);
+  const formObject = {};
 
+  formData.forEach((value, key) => {
+    formObject[key] = value;
+  });
+  for (let pair of formData.entries()) {
+    console.log(pair[0] + ', ' + pair[1]);
+}
 
+  const response = await createPost(`${baseURL}`, token, formObject);
+
+  if(response.id) { 
+    showSnackbar();
+    e.target.reset();
+}
+ return response
+});
 
 
 confirmEdit .addEventListener("click", async function (event) {
@@ -203,10 +231,13 @@ function generateProfileCards(data, container) {
     const cardHeader = document.createElement("div");
     cardHeader.className = "card-header";
      //eventListeners for header
-    cardHeader.addEventListener("click", () => {
-      userModal(element);
-    });
-    
+     if(userName !== element.author?.name){
+      cardHeader.addEventListener("click", () => {
+        userModal(element);
+      });
+      
+  
+     }
 
     //authorAvatar
     const cardProfileImage = document.createElement("img")
@@ -289,28 +320,28 @@ function generateProfileCards(data, container) {
     commentButton.setAttribute("data-bs-toggle", "modal");
     commentButton.setAttribute("data-bs-target", "#postId");
 
-
-
     //modal for post with commentSection
     commentButton.addEventListener('click', function() {
       const modal = document.querySelector('#postId');
       const modalProfileImg = modal.querySelector('#post-card-modal-img');
+      const modalUserName = modal.querySelector("#modalUserName")
+      const modalHandle = modal.querySelector("#modalUserHandle")
       const modalPostImg = modal.querySelector('#modalImageSrc');
       const modalTitle = modal.querySelector('#modalTitle');
       const modalBody = modal.querySelector('#modalBody');
-      const modalLikeCount = modal.querySelector("#modalLikeCount");
       const commentCountModal = modal.querySelector("#commentCount");
       const commentForm = modal.querySelector("#modalCommentForm");
       const commentSectionModal = modal.querySelector("#commentSectionModal");
   
       modalProfileImg.src = element.author?.avatar ?? "../../img/lion2.jpg";
+      modalUserName.textContent = element.author?.name
+      modalHandle.textContent = "@ "+ element.author?.name
       modalPostImg.src = element.media ?? "../../img/lion2.jpg";
       modalTitle.textContent = element.title;
       modalBody.textContent = element.body;
-      modalLikeCount.textContent = count;
       commentCountModal.textContent = element._count.comments;
       commentSectionModal.textContent = '';
-  
+
       appendCommentsToModal(element.comments, commentSectionModal);
   
       commentForm.removeEventListener("submit", (e) => handleFormSubmit(e, element,spanComment,commentCountModal,commentSectionModal));
@@ -368,7 +399,6 @@ function generateProfileCards(data, container) {
       });
       specialFunctions.append(btnEdit);
     }
-    
     //everyone gets a appending :s
     likeBtn.append(iLike,spanLike)
     commentButton.append(iComment,spanComment);
