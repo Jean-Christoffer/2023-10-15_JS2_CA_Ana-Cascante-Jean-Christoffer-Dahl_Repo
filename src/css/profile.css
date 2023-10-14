@@ -144,6 +144,18 @@ button{
 }
 
 
+.btn.btn-primary {
+  background-color: #cc5e3b; 
+  color: white;
+  margin-left: 10px;
+}
+
+.btn.btn-primary:hover {
+  background-color: #5fd0ef; 
+  color:black;
+}
+
+
 /*newCardsPosts*/
 .card{
   max-width: 600px;

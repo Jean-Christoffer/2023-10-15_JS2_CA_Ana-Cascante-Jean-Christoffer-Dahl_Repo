@@ -1,63 +1,98 @@
-# css-frameworks-ca
 
-This is the first time working with bootstrapp. I found it easy to get to undestand how bootstrapp works, the css was easier to apply and the results are good with less efford. 
-
-# Built With:
-  -HTML;
-  -SCSS;
-  -Bootstrap;
+<img src="src\img\mouselogo.jpg" alt="Project Logo" width="200">
 
 
-# My project: 
+# JS2-ca
 
-Clone and open repository: https://github.com/AnaCascante/2023-09-03_CSS_Frameworks_CA_Ana-Cascante_Repo.git
-
-
-# starting the project- what has been done. 
+Project  of a social media platform for Informatic geeks wanting to connect and share experiences and information. Implementing the REST API from <a href="https://docs.noroff.dev/">Noroff</a>
 
 
-I have used the right alined base nav for the project. 
+# Technologies Used
 
-# index.html site 
+ ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
+ ![CSS](https://img.shields.io/badge/CSS-3-blue)
+ ![HTML](https://img.shields.io/badge/HTML-5-orange)
+ ![Bootstrap](https://img.shields.io/badge/Bootstrap-4-blueviolet)
+ ![SCSS](https://img.shields.io/badge/SCSS-Stylesheet-pink)
+ 
+ 
 
-Here I use the first exemple on the forms-overview- and I changed the password part with the form text from form control - to be able to get the possibility to have some criteria for the password. I combined a form with a card to give it a better look. 
+#  Project
 
-# in the profile/index.html site 
+git clone https://github.com/AnaCascante/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo.git
 
-I used rows and col to position the cards. I did customize the style and the size of the cards and images. 
+Install depencencies: 
+npm install 
 
-
-# in the feed/index.html site
-
-components- badge- headings--- to put the name of the person that owns the feed. 
-Customized picture and carousell
+Start the application: 
+npm start 
 
 
+# Description of the project 
 
-# images that are not privat are  taken from free resources in freepik and unsplash: 
-
-•	santa-maddalena-dolomites-rangesouth-tyrol https://www.freepik.com/free-photo/santa-maddalena-dolomites-rangesouth-tyrol_27469041.htm#query=switzerland&position=4&from_view=search&track=sph
-•	view-oia-street-mornong hellas https://www.freepik.com/free-photo/view-oia-street-mornong_33155658.htm#query=greece&from_query=hellas&position=3&from_view=search&track=sph
-•	high-angle-shot-beautiful-canal-venice-with-gondolas-two-buildings  https://www.freepik.com/free-photo/high-angle-shot-beautiful-canal-venice-with-gondolas-two-buildings_9077163.htm#query=Italy&position=30&from_view=search&track=sph
-•	colorful-building-facades-along-nyhavn-canal-copenhagen-denmark from https://www.freepik.com/search?format=search&last_filter=selection&last_value=1&query=Danmark&selection=1
+This project simulates a social media platform. The project has a log in, where users with mail adress from @noroff.no or @stud.noroff.no can register a profile. Users can choose an avatar picture and a profile picture. After succesfully registering a new user it is possible to navegate to profile and feed page. In the profile page you can see the posts created by the owner of the profile and you can also choose to see the posts from the other users that you are following. On the feed page, you can see all the posts, and filter by dato or search a post by author, title or content. There is also the possibility to create posts, update posts, delete posts, like posts and comment on posts. 
 
 
 
-# snipper code to make rows and col that I could copy-passet to the project- doing the necessary changes. This is a code that I adjusted myself to fit the necessities of my project. 
 
-     <div class="container">
-      <div class="row">
-        <div class="row justify-content-center align-items-center text-center col-sm-12 col-md-6">col one</div>
-        <div class="row justify-content-center align-items-center text-center col-sm-12 col-md-6">col two</div>
-      </div>
-     </div>
 
-     <div class="container">
-      <div class="row">
-        <div class="row justify-content-center align-items-center text-center col">col one</div>
-      </div>
-     </div>
+# Image references 
 
-# colaboration 
+•	Image of the logo, created in nightcafe website. 
+https://creator.nightcafe.studio/creation/D0OALsmIPxWEhgvUcMO3
 
-thank you to fellow students for helping out and making me aware of some issues! 
+
+
+# Color palette used in the project 
+
+Using bootstrap color black for the background of the pages. Using the color palette from the logo to apply some color to the page. Checked WCAG of the colors. 
+
+Button Color: #ffc107  <svg width="100" height="50">
+  <rect width="50" height="50" rx="10" ry="10" style="fill: #5a566a;" />
+</svg>
+
+
+
+## Color palette from the logo. 
+
+LightGrey Color: #5a566a  <svg width="100" height="50">
+  <rect width="50" height="50" rx="10" ry="10" style="fill: #5a566a;" />
+</svg>
+
+Orange Color: #cc5e3b  <svg width="100" height="50">
+  <rect width="50" height="50" rx="10" ry="10" style="fill: #cc5e3b;" />
+</svg>
+
+LightRosa Color: #c5c3df <svg width="100" height="50">
+  <rect width="50" height="50" rx="10" ry="10" style="fill: #c5c3df;" />
+</svg>
+
+LightBlue Color: #5fd0ef  <svg width="100" height="50">
+  <rect width="50" height="50" rx="10" ry="10" style="fill: #5fd0ef;" />
+</svg>
+
+Pink Color: #a67299  <svg width="100" height="50">
+  <rect width="50" height="50" rx="10" ry="10" style="fill: #a67299;" />
+</svg>
+
+
+
+
+Created with: https://brandfolder.com/workbench/color-palette 
+
+
+    
+
+# Acknowledgments 
+
+Thank you to the teachers at Noroff and fellow students for their contributions and helpfull feedback. 
+
+# Contact information 
+
+<a href="https://github.com/Jean-Christoffer" target="_blank">Jean Christoffer Dahl</a>
+Email: 
+JeaDah78334@stud.noroff.no
+
+<a href="https://github.com/AnaCascante" target="_blank">Ana Cascante</a>
+Email: 
+ AnaCas71213@stud.noroff.no
