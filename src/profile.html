@@ -56,12 +56,12 @@
     <!-- Profile Image -->
     <img src="/img/lion2.jpg" id="profileImg" class="profile-image" alt="Profile Image">
   </div>
-  <button class="btn btn-primary edit-profile-btn bg-warning text-dark custom-btn"  id="openModalBtn" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
+  <button class="btn btn-primary edit-profile-btn bg-warning text-dark custom-btn"  id="openModalBtn" data-bs-toggle="modal" data-bs-target="#editProfileModal" aria-label="Edit profile">Edit Profile</button>
   
   <div class="bio-section text-left bg-dark mt-5">
-      <h3 class="username text-white px-2" id="username"></h3>
-      <p class="following-info text-warning badge">Following <span class="badge bg-primary rounded-pill" id="followingCount">0</span></p>
-      <p class="followers-info text-warning badge">Followers <span class="badge bg-primary rounded-pill" id="followersCount">0</span></p>
+      <h1 class="username text-white px-2" id="username" aria-label="User name"></h1>
+      <p class="following-info text-warning badge fs-4">Following <span class="badge bg-primary rounded-pill fs-4" id="followingCount">0</span></p>
+      <p class="followers-info text-warning badge fs-4">Followers <span class="badge bg-primary rounded-pill fs-4" id="followersCount">0</span></p>
   </div>
 
   
@@ -73,7 +73,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+            <h2 class="modal-title" id="editProfileModalLabel">Edit Profile</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -88,7 +88,7 @@
                 <input type="text" class="form-control" id="profileImage">
                 <strong class="text-danger" id="profileImageError"></strong>
               </div>
-              <button class="btn btn-primary" type="submit" >Save changes</button>
+              <button class="btn btn-primary" type="submit" aria-label="Save the changes" >Save changes</button>
             </form>
           </div>
           <small class="text-center p-1" id="messageForUser"><stronng>Images must be fully formed URLs that links to live and publicly accessible images</stronng></small>
@@ -154,7 +154,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="confirmEdit">Edit Post</button>
+          <button type="button" class="btn btn-primary" id="confirmEdit" aria-label="edit post">Edit Post</button>
         </div>
       </div>
     </div>
@@ -164,7 +164,7 @@
         <div class="modal-dialog">
             <div class="modal-content card">
                 <div class="card-header">
-                    <img class="card-profile-img" src="" id="post-card-modal-img">
+                    <img class="card-profile-img" src="" id="post-card-modal-img" aria-label="profile image of the user">
                     <div class="userInfo">
                         <p class="name" id="modalUserName"></p>
                         <p class="handle" id="modalUserHandle"></p>
@@ -179,7 +179,7 @@
                     </article>
                 </div>
                 <div class="card-content-img-container">
-                    <img id="modalImageSrc" src="">
+                    <img id="modalImageSrc" src="" aria-label="image for the card">
                 </div>
                 <div class="reaction-container">
                     <button id="modalCommentBtn"><i class="fas fa-comment"></i><span id="commentCount">0</span></button>

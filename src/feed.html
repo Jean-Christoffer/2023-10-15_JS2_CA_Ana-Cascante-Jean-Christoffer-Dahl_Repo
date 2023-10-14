@@ -115,7 +115,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editPostModalLabel">Edit Post</h5>
+          <h3 class="modal-title" id="editPostModalLabel">Edit Post</h3>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -134,7 +134,7 @@
         <div class="modal-dialog">
             <div class="modal-content card">
                 <div class="card-header">
-                    <img class="card-profile-img" src="" id="post-card-modal-img">
+                    <img class="card-profile-img" src="" id="post-card-modal-img" aria-label="Card profile image">
                     <div class="userInfo">
                         <p class="name" id="modalUserName"></p>
                         <p class="handle" id="modalUserHandle"></p>
@@ -149,10 +149,10 @@
                     </article>
                 </div>
                 <div class="card-content-img-container">
-                    <img id="modalImageSrc" src="">
+                    <img id="modalImageSrc" src="" aria-label="Card image">
                 </div>
                 <div class="reaction-container">
-                    <button id="modalCommentBtn"><i class="fas fa-comment"></i><span id="commentCount">0</span></button>
+                    <button id="modalCommentBtn" aria-label="open comments"><i class="fas fa-comment"></i><span id="commentCount">0</span></button>
                 </div>
                 <div class="comments-section mt-3">
                     <h5>Comments</h5>
@@ -193,7 +193,7 @@
          
                 <div class="bio-section text-left bg-dark ">
                     <div class="mt-4 custom-body-container">
-                        <h3 class="username text-white px-2" id="username"></h3>
+                        <h2 class="username text-white px-2" id="username" aria-label="User name"></h2>
                         <p class="following-info text-warning badge">Following <span class="badge bg-primary rounded-pill" id="followingCount">0</span></p>
                         <p class="followers-info text-warning badge">Followers <span class="badge bg-primary rounded-pill" id="followersCount">0</span></p>
                         <button class="btn btn-primary bg-warning text-dark custom-btn"  id="followModalButton">Follow</button>

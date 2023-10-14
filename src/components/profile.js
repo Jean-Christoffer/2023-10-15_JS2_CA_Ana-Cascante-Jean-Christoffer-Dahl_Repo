@@ -318,6 +318,7 @@ function generateProfileCards(data, container, userProfile) {
     const cardProfileImage = document.createElement("img")
     cardProfileImage.className = "card-profile-img"
     cardProfileImage.src= element.author?.avatar ?? "./img/avatar.jpg";
+    cardProfileImage.setAttribute("aria-label", "Profile Image");
 
     //Author
     const cardName = document.createElement("p")
@@ -373,6 +374,7 @@ function generateProfileCards(data, container, userProfile) {
     const likeBtn = document.createElement("button")
     const iLike = document.createElement("i")
     iLike.className = "fas fa-heart"
+  
 
     //likeCount
     const spanLike = document.createElement("span");
