@@ -3,10 +3,7 @@
   "version": "0.0.1",
   "description": "Building a Social media platform",
   "scripts": {
-    "docs": "jsdoc -c ./conf.json -r",
-    "build": "sass src/scss:dist/css",
-    "watch": "sass --watch src/scss:dist/css"
-    
+    "docs": "jsdoc -c ./conf.json -r"
   },
   "repository": {
     "type": "git",
@@ -16,9 +13,7 @@
     "CSS",
     "CSS",
     "Frameworks",
-    "Bootstrap",
-    "SCSS",
-    "SASS"
+    "Bootstrap"
   ],
   "author": "Ana Cascante <anacas71213@stud.noroff.no> and Jean Christoffer Dahl <JeaDah78334@stud.noroff.no>",
   "license": "ISC",
@@ -31,7 +26,6 @@
     "bootstrap": "^5.3.1"
   },
   "devDependencies": {
-    "jsdoc": "^4.0.2",
-    "sass": "^1.66.1"
+    "jsdoc": "^4.0.2"
   }
 }
