@@ -19,7 +19,7 @@ function logout(){
     /** 
     * Redirect the user to the login page (index.html).
     */
-    window.location.href = "../src/index.html";
+    window.location.href = "./index.html";
 
 }
 
@@ -29,4 +29,3 @@ function logout(){
  * When the "logOut" button is clicked, it triggers the logout function.
  */
 logOut.addEventListener("click",logout)
-console.log(logOut)
