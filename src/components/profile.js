@@ -115,46 +115,47 @@ updateMediaForm.addEventListener("submit",async(e) =>{
 /**
  * Generates HTML for the user profile page.
  */
-async function generateHTML(){
-  //your profile
-    const data = await getProfile(baseURL,userName, options)
-    //your posts
-    const getUserPosts = await getPostByProfile(baseURL,userName,options)
-
-
-
-    //get posts by followed users
-    const userPostsFollow = data.following.map(async (n) => {
-
-      const data = await getPostsByProfile(baseURL, n.name, options);
-
-      return data;
-    });
+async function generateHTML() {
+  try {
+    // Your profile
+    const data = await getProfile(baseURL, userName, options);
     
+    // Your posts
+    const getUserPosts = await getPostByProfile(baseURL, userName, options);
+    
+    // Get posts by followed users
+    const userPostsFollow = data.following.map(async (n) => {
+      return await getPostsByProfile(baseURL, n.name, options);
+    });
+
     const resultsUserPosts = await Promise.all(userPostsFollow);
     
-    // Flatten the results into a single array, fancy stuff:S
+    // Flatten the results into a single array
     const mergedPosts = [].concat(...resultsUserPosts);
+    
+    // Get userBio by followed users
+    const userBio = data.following.map(async (n) => {
+      return await getProfile(baseURL, n.name, options);
+    });
 
+    const userBioResult = await Promise.all(userBio);
+    
+    profileName.textContent = data.name;
+    followingCount.textContent = data._count.following;
+    followersCount.textContent = data._count.followers;
 
-        //get userBio by followed users
-        const userBio = data.following.map(async (n) => {
-          return await getProfile(baseURL, n.name, options);
-        });
-      
-        const userBioResult = await Promise.all(userBio);
-      
-    profileName.textContent = data.name
-    followingCount.textContent = data._count.following
-    followersCount.textContent = data._count.followers
+    headerImg.src = data.banner ?? "./img/avatar.jpg";
+    profileImg.src = data.avatar ?? "./img/avatar.jpg";
+    
+    // My posts
+    generateProfileCards(getUserPosts, yourPosts, data);
+    // People I follow posts
+    generateProfileCards(mergedPosts, followerPostsContainer, userBioResult);
 
-    headerImg.src= data.banner ??  "./img/avatar.jpg"
-    profileImg.src = data.avatar ?? "./img/avatar.jpg"
-    //my posts
-    generateProfileCards(getUserPosts, yourPosts,data)
-    //people i follow posts
-    generateProfileCards(mergedPosts,followerPostsContainer,userBioResult)
-
+  } catch (error) {
+    console.error("Error generating HTML:", error);
+    window.alert("Sorry, something went wrong while loading the profile. Please try again later.");
+  }
 }
 // edit function for editing post, uses data-attributes to get the post id from your posts
 

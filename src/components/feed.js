@@ -122,9 +122,15 @@ async function getPosts(headerOptions) {
  * Generates the page by fetching posts and displaying them in the feed container.
  */
 async function generatePage() {
-  const data = await getPosts(options);
-  if (data) {
-    generateProfileCards(data, feedContainer, userName);
+  try {
+    const data = await getPosts(options);
+    if (data) {
+      generateProfileCards(data, feedContainer, userName);
+    }
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+
+    window.alert("Sorry, something went wrong while loading the page. Please try again later.");
   }
 }
 
