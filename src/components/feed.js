@@ -250,7 +250,7 @@ function handleFollowButtonClick(authorName) {
     follow(baseURL, authorName, token, event.currentTarget);
   };
 }
-// will be moved to utilsFolder
+
 /**
  * Event listener for submitting a comment form.
  *
@@ -292,7 +292,7 @@ async function handleFormSubmit(e, element, spanComment, commentCountModal, comm
       }
   }
 }
-// will be moved to utilsFolder
+
 /**
  * Appends comments to the comment section in the modal.
  * @param {object[]} comments - An array of comment objects.
@@ -304,7 +304,7 @@ function appendCommentsToModal(comments, commentSectionModal) {
       commentSectionModal.append(author, commentElem);
   });
 }
-// will be moved to utilsFolder
+
 /**
  * Creates a comment element for display in the modal.
  * @param {object} comment - The comment object.

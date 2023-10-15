@@ -225,7 +225,7 @@ async function handleFormSubmit(e, element, spanComment, commentCountModal, comm
       }
   }
 }
-// will be moved to utilsFolder
+
 /**
  * Appends comments to the comment section of a modal.
  * @param {Array} comments - The comments to be appended.
@@ -237,7 +237,7 @@ function appendCommentsToModal(comments, commentSectionModal) {
       commentSectionModal.append(author, commentElem);
   });
 }
-// will be moved to utilsFolder
+
 /**
  * Creates an HTML element for a comment.
  *

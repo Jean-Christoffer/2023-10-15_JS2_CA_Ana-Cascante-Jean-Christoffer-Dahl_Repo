@@ -22,7 +22,7 @@
   <header class="">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-3">
         <a class="navbar-brand" href="./feed.html">
-            <img src="./img/mouselogo.jpg" alt="mouse with glasses" width="30" height="30" class="rounded-circle">
+            <img src="./img/mouselogo.jpg" alt="white mouse face with sunglasses" width="30" height="30" class="rounded-circle">
         </a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,6 +65,7 @@
 
         <!-- Filter Content -->
         <div class="tab-pane fade" id="filter" role="tabpanel" aria-labelledby="filter-tab">
+            <label for="filterSelect">Select a Filter:</label>
             <select id="filterSelect" class="form-control">
                 <option value="all">All Posts</option>
                 <option value="lastThreeDays">Last three days</option>
@@ -78,6 +79,7 @@
 
         <!-- Search Content -->
         <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">
+            <label for="searchInput">Search:</label>
             <input type="text" id="searchInput" class="form-control" placeholder="Search...">
         </div>
 
@@ -115,11 +117,13 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title" id="editPostModalLabel">Edit Post</h3>
+          <h2 class="modal-title" id="editPostModalLabel">Edit Post</h2>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          <label for="editTitle">Edit Title:</label>
           <input type="text" id="editTitle" class="form-control my-2" placeholder="Edit title">
+          <label for="editBody">Edit Post Content:</label>
           <input type="text" id="editBody" class="form-control my-2" placeholder="Edit post content">
         </div>
         <div class="modal-footer">
@@ -144,7 +148,7 @@
                 </div>
                 <div class="card-body">
                     <article class="card-body-content">
-                        <h5 id="modalTitle"></h5>
+                        <h3 id="modalTitle"></h3>
                         <p id="modalBody"></p>
                     </article>
                 </div>
@@ -155,13 +159,14 @@
                     <button id="modalCommentBtn" aria-label="open comments"><i class="fas fa-comment"></i><span id="commentCount">0</span></button>
                 </div>
                 <div class="comments-section mt-3">
-                    <h5>Comments</h5>
+                    <h4>Comments</h4>
                     <div class="comments-list" id="commentSectionModal">
                         <!-- Comments will be populated here -->
                     </div>
                 
                     <form id="modalCommentForm">
                         <div class="input-group mt-2">
+                            <label for="modalCommentInput">Write a comment:</label>
                             <input type="text" id="modalCommentInput" class="form-control" placeholder="Write a comment..." >
                             <div class="input-group-append mx-1">
                                 <button class="btn btn-primary" type="submit">Post</button>
@@ -193,9 +198,9 @@
          
                 <div class="bio-section text-left bg-dark ">
                     <div class="mt-4 custom-body-container">
-                        <h2 class="username text-white px-2" id="username" aria-label="User name"></h2>
-                        <p class="following-info text-warning badge">Following <span class="badge bg-primary rounded-pill" id="followingCount">0</span></p>
-                        <p class="followers-info text-warning badge">Followers <span class="badge bg-primary rounded-pill" id="followersCount">0</span></p>
+                        <h5 class="username text-white px-2" id="username" aria-label="User name"></h5>
+                        <p class="following-info text-warning badge fs-5">Following <span class="badge bg-primary rounded-pill fs-5" id="followingCount">0</span></p>
+                        <p class="followers-info text-warning badge fs-5">Followers <span class="badge bg-primary rounded-pill fs-5" id="followersCount">0</span></p>
                         <button class="btn btn-primary bg-warning text-dark custom-btn"  id="followModalButton">Follow</button>
                         <p class="text-white px-2" id="userBioModalName">UserName</p>
                     </div>
