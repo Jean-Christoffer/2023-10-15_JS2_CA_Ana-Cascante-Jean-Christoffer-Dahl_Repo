@@ -8,7 +8,7 @@
  * @param {string} formData.body - The body/content of the post (required).
  * @param {string} formData.tags - Comma-separated tags for the post (optional).
  * @param {string} formData.imageUrl - The URL of an optional image to include in the post.
- * 
+ *
  * @returns {Promise<object>} A Promise that resolves with the response data after creating the post.
  * @throws {Error} If an error occurs during the post creation or data retrieval.
  */
@@ -23,9 +23,11 @@ async function createPost(url, token, formData) {
     body: JSON.stringify({
       title: formData.title, // req
       body: formData.body, // req
-      tags: formData.tags ? formData.tags.split(',').map(tag => tag.trim()) : [], // Assuming comma-separated tags
-      media: formData.imageUrl || "" // Optional
-    })
+      tags: formData.tags
+        ? formData.tags.split(",").map((tag) => tag.trim())
+        : [], // Assuming comma-separated tags
+      media: formData.imageUrl || "", // Optional
+    }),
   };
 
   try {
@@ -36,6 +38,5 @@ async function createPost(url, token, formData) {
     console.log(err);
   }
 }
-  
-  
-export default createPost
+
+export default createPost;

@@ -3,7 +3,21 @@
   "version": "0.0.1",
   "description": "Building a Social media platform",
   "scripts": {
-    "docs": "jsdoc -c ./conf.json -r"
+    "docs": "jsdoc -c ./conf.json -r",
+    "format": "prettier --write \"src/**/*.js\" \"src/**/*.html\" \"src/**/*.css\"",
+    "lint": "eslint  \"src/components/**/*.js\" \"src/utils/**/*.js\"",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --fix",
+      "prettier --write"
+     
+    ],
+    "*.{html,css}": [
+      "prettier --write"
+ 
+    ]
   },
   "repository": {
     "type": "git",
@@ -26,6 +40,10 @@
     "bootstrap": "^5.3.1"
   },
   "devDependencies": {
-    "jsdoc": "^4.0.2"
+    "eslint": "^8.52.0",
+    "husky": "^8.0.3",
+    "jsdoc": "^4.0.2",
+    "lint-staged": "^15.0.2",
+    "prettier": "^3.0.3"
   }
 }

@@ -7,18 +7,17 @@
  * @returns {Promise<Array>} A Promise that resolves with an array of posts.
  * @throws {Error} If an error occurs during the fetch request or data retrieval.
  */
-async function getAllPosts(url,options){
+async function getAllPosts(url, options) {
+  try {
+    const response = await fetch(
+      `${url}/social/posts?_author=true&_comments=true&_reactions=true`,
+      options,
+    );
+    const responseData = await response.json();
 
-    try{
-    const response = await fetch(`${url}/social/posts?_author=true&_comments=true&_reactions=true`,options)
-    const responseData = await response.json()
-   
-
-    return responseData
-    }catch(err){
-        console.log(err)
-    }
-
-
+    return responseData;
+  } catch (err) {
+    console.log(err);
+  }
 }
-export default getAllPosts
+export default getAllPosts;

@@ -9,26 +9,23 @@
  * @returns {Promise<Object>} A Promise that resolves with the response data after posting the comment.
  * @throws {Error} If an error occurs during the comment posting or data retrieval.
  */
-async function postComment(url,id,comment,token){
-    try{
-        const response = await fetch(`${url}/social/posts/${id}/comment`,
-        {
-          method:"POST",
-          headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            },
-        
-            body:JSON.stringify({
-              "body": comment,
-             
-            })
-        
-        });
-        const data = await response.json()     
-        return data
-      } catch(err) {
-        console.log(err);
-      }
+async function postComment(url, id, comment, token) {
+  try {
+    const response = await fetch(`${url}/social/posts/${id}/comment`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        body: comment,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
 }
-export default postComment
+export default postComment;
