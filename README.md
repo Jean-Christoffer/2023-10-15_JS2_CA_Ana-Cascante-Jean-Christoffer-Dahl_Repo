@@ -66,3 +66,7 @@ JeaDah78334@stud.noroff.no
 <a href="https://github.com/AnaCascante" target="_blank">Ana Cascante</a>
 Email: 
  AnaCas71213@stud.noroff.no
+
+# link to deployed site
+
+<a href="https://verdant-pudding-2bd2ac.netlify.app" target="_blank">Live site</a>
