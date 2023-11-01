@@ -31,6 +31,7 @@ npm install
 Start the application: 
 npm start 
 
+## Hooks
 Project is configured to run Prettier on commit
 Project is configured to run ESLint on commit
 
