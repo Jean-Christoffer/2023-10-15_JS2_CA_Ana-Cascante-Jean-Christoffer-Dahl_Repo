@@ -31,7 +31,8 @@ npm install
 Start the application: 
 npm start 
 
-Project is configured to run Prettier and ESLint on commit
+Project is configured to run Prettier on commit
+Project is configured to run ESLint on commit
 
 ## Testing
 
