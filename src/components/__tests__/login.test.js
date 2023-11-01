@@ -3,6 +3,8 @@
  */
 import logIn from "../../utils/loginFunc.js";
 import { mail, password } from "../../../cypress/creds.js";
+require("dotenv/config");
+
 if (!global.fetch) {
   global.fetch = () => Promise.resolve();
 }
