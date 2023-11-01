@@ -1,7 +1,7 @@
 
 <img src="src\img\mouselogo.jpg" alt="Project Logo" width="200">
 
-![Node.js CI](https://github.com/[Jean-Christoffer]/[2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo]/actions/workflows/[node.js.yml].yml/badge.svg)
+![Node.js CI](https://github.com/Jean-Christoffer/myproject/actions/workflows/node.js.yml/badge.svg)
 
 # JS2-ca
 
