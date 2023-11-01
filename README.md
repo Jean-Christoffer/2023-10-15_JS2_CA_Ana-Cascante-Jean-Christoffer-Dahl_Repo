@@ -30,6 +30,12 @@ npm install
 Start the application: 
 npm start 
 
+Project is configured to run Prettier and ESLint on commit
+
+## Testing
+
+For testing with jest - npm run test-unit
+For testing with cypress - npm run test-e2e
 
 # Description of the project 
 
