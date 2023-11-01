@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import logIn from "../../utils/loginFunc.js";
-
+import { mail, password } from "../../../cypress/creds.js";
 if (!global.fetch) {
   global.fetch = () => Promise.resolve();
 }
@@ -39,8 +39,8 @@ test("logIn function fetches and stores a token", async () => {
   const baseUrl = "https://api.noroff.dev/api/v1";
   const expectedUrl = `${baseUrl}/social/auth/login`;
   const requestBody = {
-    email: "jeadah78334@stud.noroff.no",
-    password: "12345678",
+    email: mail,
+    password: password,
   };
 
   fetch.mockResolvedValueOnce({
