@@ -8,6 +8,7 @@
         {
           "files": ["**/*.test.js"],
           "env": { "jest": true },
+          "globals": { "global": "writable" },
           "plugins": ["jest"],
           "extends": ["plugin:jest/recommended"],
           "rules": { "jest/prefer-expect-assertions": "off" }
