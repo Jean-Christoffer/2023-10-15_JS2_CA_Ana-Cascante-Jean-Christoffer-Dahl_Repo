@@ -1,0 +1,20 @@
+name: Test.js CI
+
+on:
+  push:
+    branches: [ workflow ]
+  pull_request:
+    branches: [ workflow ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+    - run: npm ci
+    - run: npm run test-unit

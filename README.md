@@ -1,6 +1,7 @@
 
 <img src="src\img\mouselogo.jpg" alt="Project Logo" width="200">
 
+![Test.js CI](https://github.com/Jean-Christoffer/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo/actions/workflows/node.js.yml/badge.svg)
 
 # JS2-ca
 
@@ -30,6 +31,14 @@ npm install
 Start the application: 
 npm start 
 
+## Hooks
+Project is configured to run Prettier and ESLint on commit
+
+
+## Testing
+
+For testing with jest - npm run test-unit
+For testing with cypress - npm run test-e2e
 
 # Description of the project 
 
