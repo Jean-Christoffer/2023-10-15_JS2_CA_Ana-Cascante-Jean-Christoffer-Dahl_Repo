@@ -1,2 +1,2 @@
-export const mail = 'JeaDah78334@stud.noroff.no'
-export const password = ''
+export const mail = 'testssssssssssssssssss@stud.noroff.no'
+export const password = '12345678'
