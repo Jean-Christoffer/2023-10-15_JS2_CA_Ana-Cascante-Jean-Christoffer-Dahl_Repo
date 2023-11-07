@@ -1,0 +1,18 @@
+name: cypressTest
+
+on:
+  push:
+    branches: [ workflow ]
+  pull_request:
+    branches: [ workflow ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run Cypress tests
+      run: npx cypress run --spec 'cypress/e2e/3-testing/**/*'
