@@ -1,4 +1,4 @@
-name: jesTest.js CI
+name: jestTest.js CI
 
 on:
   push:
