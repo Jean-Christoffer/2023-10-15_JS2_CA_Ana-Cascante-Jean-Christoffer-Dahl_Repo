@@ -3,7 +3,7 @@
 
 ![jestTest](https://github.com/Jean-Christoffer/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo/actions/workflows/jestTest.js.yml/badge.svg)
 ![cypressTest](https://github.com/Jean-Christoffer/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo/actions/workflows/cypressTest.yml/badge.svg)
-cypressTest
+
 # JS2-ca
 
 Creating a social media platform for Informatic geeks wanting to connect and share experiences and information. Implementing the REST API from <a href="https://docs.noroff.dev/">Noroff</a>. On this project we have work in pairs, using github Projects for project management.
