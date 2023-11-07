@@ -10,7 +10,8 @@
     "test-jest": "npm run test-unit",
     "test-unit": "jest",
     "test": "npm run test-e2e",
-    "test-e2e": "cypress open"
+    "test-e2e": "cypress open",
+    "test:e2e:headless": "cypress run --spec 'cypress/e2e/3-testing/**/*'"
   },
   "lint-staged": {
     "src/**/*.js": [
