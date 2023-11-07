@@ -1,4 +1,4 @@
-name: jestTest.js CI
+name: jestTest
 
 on:
   push:
@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - run: npm ci
-    - run: npm run test-unit
+    - name: Run Jest tests
+      run: npm run test-unit
