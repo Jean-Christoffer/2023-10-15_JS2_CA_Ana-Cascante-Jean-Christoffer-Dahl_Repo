@@ -1,7 +1,8 @@
 
 <img src="src\img\mouselogo.jpg" alt="Project Logo" width="200">
 
-![jestTest.js CI](https://github.com/Jean-Christoffer/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo/actions/workflows/jestTest.js.yml/badge.svg)
+![jestTest](https://github.com/Jean-Christoffer/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo/actions/workflows/jestTest.js.yml/badge.svg)
+![cypressTest](https://github.com/Jean-Christoffer/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo/actions/workflows/cypressTest.yml/badge.svg)
 
 # JS2-ca
 

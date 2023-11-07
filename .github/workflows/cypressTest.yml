@@ -1,4 +1,4 @@
-name: jestTest
+name: cypressTest
 
 on:
   push:
@@ -14,5 +14,5 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Run Jest tests
-      run: npm run test-unit
+    - name: Run Cypress tests
+      run: npx cypress run --spec 'cypress/e2e/3-testing/**/*'
