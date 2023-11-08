@@ -3,6 +3,7 @@
 
 ![jestTest](https://github.com/Jean-Christoffer/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo/actions/workflows/jestTest.js.yml/badge.svg)
 ![cypressTest](https://github.com/Jean-Christoffer/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo/actions/workflows/cypressTest.yml/badge.svg)
+![Deploy static content to Pages](https://github.com/Jean-Christoffer/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo/actions/workflows/static.yml/badge.svg)
 
 # JS2-ca
 
