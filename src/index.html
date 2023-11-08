@@ -1,63 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Social media application home site</title>
-    <meta name="author" content="Ana Cascante and Jean Christoffer Dahl"/>
-    <meta name="description" content="This is a social media platform for people studing and working with Frondend development"/>
+    <meta name="author" content="Ana Cascante and Jean Christoffer Dahl" />
+    <meta
+      name="description"
+      content="This is a social media platform for people studing and working with Frondend development"
+    />
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+      rel="stylesheet"
+    />
 
-    <script src="./components/login.js"  type="module"></script>
-</head>
-<body  class="bg-secondary text-white d-flex justify-content-center align-items-center" style="height: 70vh">
-
-
-
-  <div class="container mb-30  ">
-    <div class="row justify-content-center align-items-center">
+    <script src="./components/login.js" type="module"></script>
+  </head>
+  <body
+    class="bg-secondary text-white d-flex justify-content-center align-items-center"
+    style="height: 70vh"
+  >
+    <div class="container mb-30">
+      <div class="row justify-content-center align-items-center">
         <div>
-            <img class="rounded-circle mx-auto d-block img-fluid border border-black mb-4" src="./img/mouselogo.jpg" alt="white mouse face with sunglasses" style="width: 20%; height: auto;">
+          <img
+            class="rounded-circle mx-auto d-block img-fluid border border-black mb-4"
+            src="./img/mouselogo.jpg"
+            alt="white mouse face with sunglasses"
+            style="width: 20%; height: auto"
+          />
         </div>
-        
-        <div class="col-md-6">
-            <div class="card bg-dark text-white"> <!-- dark card background and white text for the card -->
 
-                
-                <div class="card-header">
-                    <h1>NerdsNett</h1>
-                </div>
-                <div class="card-body">
-                    <form id="login_form">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email *</label>
-                            <input type="email" class="form-control" aria-describedby="emailHelp" id="email" placeholder="example@mail.com"/>
-                            <div id="emailHelp" class="form-text text-light">
-                              <strong id="emailError" class="text-danger"></strong>
-                            </div> <!-- light color text for hints -->
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password *</label>
-                            <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" autocomplete="false" placeholder="******"/>
-                            <div id="passwordHelpBlock" class="form-text text-light">
-                                <strong id="passwordError" class="text-danger"></strong>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <button type="submit" class="btn btn-warning">Log in</button> <!-- yellow button -->
-                            <a href="./register.html" class="btn btn-light btn-sm text-dark">Create account</a> <!-- light button with dark text -->
-                        </div>
-                    </form>
-                </div>
+        <div class="col-md-6">
+          <div class="card bg-dark text-white">
+            <!-- dark card background and white text for the card -->
+
+            <div class="card-header">
+              <h1>NerdsNett</h1>
             </div>
-        </div> 
-    </div> 
-  </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
-</body>
+            <div class="card-body">
+              <form id="login_form">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email *</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    aria-describedby="emailHelp"
+                    id="email"
+                    placeholder="example@mail.com"
+                  />
+                  <div id="emailHelp" class="form-text text-light">
+                    <strong id="emailError" class="text-danger"></strong>
+                  </div>
+                  <!-- light color text for hints -->
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password *</label>
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    aria-describedby="passwordHelpBlock"
+                    autocomplete="false"
+                    placeholder="******"
+                  />
+                  <div id="passwordHelpBlock" class="form-text text-light">
+                    <strong id="passwordError" class="text-danger"></strong>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between">
+                  <button type="submit" class="btn btn-warning">Log in</button>
+                  <!-- yellow button -->
+                  <a
+                    href="./register.html"
+                    class="btn btn-light btn-sm text-dark"
+                    >Create account</a
+                  >
+                  <!-- light button with dark text -->
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

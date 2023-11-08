@@ -68,35 +68,33 @@ const options = {
 };
 
 /** @type {string[]} */
-const cssSelectors =
-[
-"#feed-container",
-"#confirmEdit",
-"#modalHeaderImg",
-"#modalProfileImg",
-"#userBioModalName",
-"#followingCount",
-"#followersCount",
-"#followModalButton",
-"#createPostForm"
-
-]
+const cssSelectors = [
+  "#feed-container",
+  "#confirmEdit",
+  "#modalHeaderImg",
+  "#modalProfileImg",
+  "#userBioModalName",
+  "#followingCount",
+  "#followersCount",
+  "#followModalButton",
+  "#createPostForm",
+];
 /** @type {Element[]} */
-const querySelectors = cssSelectors.map(value => document.querySelector(value))
+const querySelectors = cssSelectors.map((value) =>
+  document.querySelector(value),
+);
 /** @type {Element[]} */
-const
-[
- feedContainer,
- confirmEdit,
- modalHeaderImg,
- modalProfileImg,
- userBioModalName,
- followingCount,
- followersCount,
- followModalButton,
- createPostForm
-
-] = querySelectors
+const [
+  feedContainer,
+  confirmEdit,
+  modalHeaderImg,
+  modalProfileImg,
+  userBioModalName,
+  followingCount,
+  followersCount,
+  followModalButton,
+  createPostForm,
+] = querySelectors;
 
 /**
  * Fetch posts using the provided header options.
@@ -108,7 +106,7 @@ async function getPosts(headerOptions) {
   try {
     const response = await fetch(
       `${baseURL}/social/posts?_author=true&_comments=true&_reactions=true&limit=100`,
-      headerOptions
+      headerOptions,
     );
     const posts = await response.json();
 
@@ -130,7 +128,9 @@ async function generatePage() {
   } catch (error) {
     console.error("Error fetching posts:", error);
 
-    window.alert("Sorry, something went wrong while loading the page. Please try again later.");
+    window.alert(
+      "Sorry, something went wrong while loading the page. Please try again later.",
+    );
   }
 }
 
@@ -141,7 +141,7 @@ function showSnackbar() {
   const snackbar = document.getElementById("snackbar");
   snackbar.className = "show";
   setTimeout(() => {
-      snackbar.className = snackbar.className.replace("show", "");
+    snackbar.className = snackbar.className.replace("show", "");
   }, 3000); // This will hide the snackbar after 3 seconds
 }
 
@@ -151,9 +151,9 @@ function showSnackbar() {
  * @param {Event} e - The form submission event.
  * @returns {Promise<any>} - A promise that resolves to the response from creating the post.
  */
-createPostForm.addEventListener('submit', async (e) => {
+createPostForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  
+
   const formData = new FormData(e.target);
   const formObject = {};
 
@@ -161,16 +161,16 @@ createPostForm.addEventListener('submit', async (e) => {
     formObject[key] = value;
   });
   for (let pair of formData.entries()) {
-    console.log(pair[0] + ', ' + pair[1]);
-}
+    console.log(pair[0] + ", " + pair[1]);
+  }
 
   const response = await createPost(`${baseURL}`, token, formObject);
 
-  if(response.id) { 
+  if (response.id) {
     showSnackbar();
     e.target.reset();
-}
- return response
+  }
+  return response;
 });
 
 /**
@@ -179,33 +179,35 @@ createPostForm.addEventListener('submit', async (e) => {
  * @param {Event} event - The click event on the edit button.
  */
 
-confirmEdit.addEventListener('click', async function(event) {
+confirmEdit.addEventListener("click", async function (event) {
+  const postId = event.currentTarget.getAttribute("data-post-id");
+  // eslint-disable-next-line no-undef
+  let modal = bootstrap.Modal.getInstance(
+    document.querySelector("#editPostModal"),
+  );
+  let updatedTitle = document.querySelector("#editTitle").value;
+  let updatedBody = document.querySelector("#editBody").value;
 
-  const postId = event.currentTarget.getAttribute('data-post-id');
-  let modal = bootstrap.Modal.getInstance(document.querySelector('#editPostModal'));
-  let updatedTitle = document.querySelector('#editTitle').value;
-  let updatedBody = document.querySelector('#editBody').value;
+  const response = await editPost(
+    baseURL,
+    postId,
+    updatedTitle,
+    updatedBody,
+    token,
+  );
 
-  const response = await editPost(baseURL,postId,updatedTitle,updatedBody, token);
-
-  if(response.updated > response.created) {
-
+  if (response.updated > response.created) {
     const postCard = document.getElementById(postId);
-    const titleElement = postCard.querySelector('.card-body-content h5');
-    const bodyElement = postCard.querySelector('.card-body-content p');
+    const titleElement = postCard.querySelector(".card-body-content h5");
+    const bodyElement = postCard.querySelector(".card-body-content p");
 
     titleElement.textContent = updatedTitle;
     bodyElement.textContent = updatedBody;
     updatedTitle = "";
     updatedBody = "";
-    modal.hide(); 
+    modal.hide();
   }
-
-  
-
 });
-
-
 
 //userModal from hell
 /**
@@ -215,16 +217,16 @@ confirmEdit.addEventListener('click', async function(event) {
  */
 async function userModal(element) {
   const userBio = await getProfile(baseURL, element.author?.name, options);
+  // eslint-disable-next-line no-undef
   const modal = new bootstrap.Modal(
-    document.getElementById("userProfileModal")
+    document.getElementById("userProfileModal"),
   );
-
 
   followModalButton.textContent = "Follow";
   followModalButton.disabled = false;
 
-  modalHeaderImg.src = element.author?.header ?? "./img/avatar.jpg" ;
-  modalProfileImg.src = element.author?.avatar ?? "./img/avatar.jpg" ;
+  modalHeaderImg.src = element.author?.header ?? "./img/avatar.jpg";
+  modalProfileImg.src = element.author?.avatar ?? "./img/avatar.jpg";
   userBioModalName.textContent = `@${element.author?.name}`;
   followingCount.textContent = userBio.following.length;
   followersCount.textContent = userBio.followers.length;
@@ -260,36 +262,47 @@ function handleFollowButtonClick(authorName) {
  * @param {HTMLElement} commentCountModal - The comment count in the modal.
  * @param {HTMLElement} commentSectionModal - The comment section in the modal.
  */
-async function handleFormSubmit(e, element, spanComment, commentCountModal, commentSectionModal) {
+async function handleFormSubmit(
+  e,
+  element,
+  spanComment,
+  commentCountModal,
+  commentSectionModal,
+) {
   e.preventDefault();
 
   const commentInputElement = document.getElementById("modalCommentInput");
   const commentTextValue = commentInputElement.value; // get the value from the input element
 
   if (commentTextValue) {
-      const data = await postComment(baseURL, element.id, commentTextValue, token); // pass the value, not the element
-      if (data) {
-          // Update the local dataset with the new comment
-          const newComment = {
-              body: commentTextValue,
-              owner: userName
-          };
-          element.comments.push(newComment);
+    const data = await postComment(
+      baseURL,
+      element.id,
+      commentTextValue,
+      token,
+    ); // pass the value, not the element
+    if (data) {
+      // Update the local dataset with the new comment
+      const newComment = {
+        body: commentTextValue,
+        owner: userName,
+      };
+      element.comments.push(newComment);
 
-          // Create and display the new comment in the modal
-          const [author, commentElem] = createCommentElement(newComment);
-          commentSectionModal.append(author, commentElem);
+      // Create and display the new comment in the modal
+      const [author, commentElem] = createCommentElement(newComment);
+      commentSectionModal.append(author, commentElem);
 
-          // Clear the input field for the next comment
-          commentInputElement.value = ''; // clear the input's value
-          
-          // Update the comments count
-          let currentCount = parseInt(spanComment.textContent, 10);
-          commentCountModal.textContent = currentCount + 1;
-          spanComment.textContent = currentCount + 1;
-      } else {
-          console.error("Failed to post the comment.");
-      }
+      // Clear the input field for the next comment
+      commentInputElement.value = ""; // clear the input's value
+
+      // Update the comments count
+      let currentCount = parseInt(spanComment.textContent, 10);
+      commentCountModal.textContent = currentCount + 1;
+      spanComment.textContent = currentCount + 1;
+    } else {
+      console.error("Failed to post the comment.");
+    }
   }
 }
 
@@ -299,9 +312,9 @@ async function handleFormSubmit(e, element, spanComment, commentCountModal, comm
  * @param {HTMLElement} commentSectionModal - The element representing the comment section in the modal.
  */
 function appendCommentsToModal(comments, commentSectionModal) {
-  comments.forEach(comment => {
-      const [author, commentElem] = createCommentElement(comment);
-      commentSectionModal.append(author, commentElem);
+  comments.forEach((comment) => {
+    const [author, commentElem] = createCommentElement(comment);
+    commentSectionModal.append(author, commentElem);
   });
 }
 
@@ -322,28 +335,40 @@ function createCommentElement(comment) {
 
 //search
 // Event listener for the search input
-document.getElementById("searchInput").addEventListener("input", function() {
+document.getElementById("searchInput").addEventListener("input", function () {
   /**
    * Handles input changes in the search input field and triggers a search.
    * @param {Event} event - The input change event.
    */
-  const searchValue = document.getElementById("searchInput").value.toLowerCase();
-  searchPosts(searchValue,getPosts,options,feedContainer,generateProfileCards);
+  const searchValue = document
+    .getElementById("searchInput")
+    .value.toLowerCase();
+  searchPosts(
+    searchValue,
+    getPosts,
+    options,
+    feedContainer,
+    generateProfileCards,
+  );
 });
 
 //filter
 // Event listener for the filter select
-document.getElementById("filterSelect").addEventListener("change", function() {
+document.getElementById("filterSelect").addEventListener("change", function () {
   /**
    * Handles changes in the filter selection and applies the selected filter.
    * @param {Event} event - The change event of the filter selection.
    */
   const filterValue = this.value;
-  filterPosts(filterValue,feedContainer,generateProfileCards,getPosts,options,userName);
+  filterPosts(
+    filterValue,
+    feedContainer,
+    generateProfileCards,
+    getPosts,
+    options,
+    userName,
+  );
 });
-
-
-
 
 /**
  * Generates profile cards for the posts and appends them to the container.
@@ -352,7 +377,6 @@ document.getElementById("filterSelect").addEventListener("change", function() {
  * @param {HTMLElement} container - The container element to which profile cards will be appended.
  */
 function generateProfileCards(data, container) {
-  
   data.forEach((element) => {
     //cardContainer
     const card = document.createElement("div");
@@ -362,135 +386,149 @@ function generateProfileCards(data, container) {
     //container for card header
     const cardHeader = document.createElement("div");
     cardHeader.className = "card-header";
-     //eventListeners for header
-     if(userName !== element.author?.name){
+    //eventListeners for header
+    if (userName !== element.author?.name) {
       cardHeader.addEventListener("click", () => {
         userModal(element);
       });
-      
-  
-     }
+    }
 
     //authorAvatar
-    const cardProfileImage = document.createElement("img")
-    cardProfileImage.className = "card-profile-img"
-    cardProfileImage.src= element.author?.avatar ?? "./img/avatar.jpg";
+    const cardProfileImage = document.createElement("img");
+    cardProfileImage.className = "card-profile-img";
+    cardProfileImage.src = element.author?.avatar ?? "./img/avatar.jpg";
     cardProfileImage.setAttribute("aria-label", "Profile Image");
 
     //Author
-    const cardName = document.createElement("p")
-    cardName.className = "name"
-    cardName.textContent = element.author?.name.charAt(0).toUpperCase() +
-    element.author?.name.slice(1);
+    const cardName = document.createElement("p");
+    cardName.className = "name";
+    cardName.textContent =
+      element.author?.name.charAt(0).toUpperCase() +
+      element.author?.name.slice(1);
 
     //Handle
-    const userHandle = document.createElement("p")
-    userHandle.className = "handle"
-    userHandle.textContent = "@" + element.author?.name
+    const userHandle = document.createElement("p");
+    userHandle.className = "handle";
+    userHandle.textContent = "@" + element.author?.name;
 
     //timeStamp
-    const timeStampCreated  = document.createElement("p")
-    timeStampCreated.className = "time"
+    const timeStampCreated = document.createElement("p");
+    timeStampCreated.className = "time";
     timeStampCreated.textContent = timeStamp(element.created);
 
     //container for time,name,handle
-    const userInfo = document.createElement("div")
-    userInfo.className = "userInfo"
+    const userInfo = document.createElement("div");
+    userInfo.className = "userInfo";
 
     //Container for CardBody
-    const cardBodyContainer = document.createElement("div")
-    cardBodyContainer.className = "card-body"
+    const cardBodyContainer = document.createElement("div");
+    cardBodyContainer.className = "card-body";
 
     //Content for cardBody
-    const cardBodyContent = document.createElement("article")
-    cardBodyContent.className = "card-body-content"
+    const cardBodyContent = document.createElement("article");
+    cardBodyContent.className = "card-body-content";
 
     //postTitle
-    const cardTitle = document.createElement("h5")
-    cardTitle.textContent = element.title
+    const cardTitle = document.createElement("h5");
+    cardTitle.textContent = element.title;
 
     //postContent
-    const cardContentPost = document.createElement("p")
-    cardContentPost.textContent =  element.body
+    const cardContentPost = document.createElement("p");
+    cardContentPost.textContent = element.body;
 
     //mediaPostContainer
-    const postImgContainer = document.createElement("div")
-    postImgContainer.className = "card-content-img-container"   
-    if(element.media){
-
-    //postImg
-    const postImg = document.createElement("img")
-    postImg.src = element.media
-    postImgContainer.append(postImg)
+    const postImgContainer = document.createElement("div");
+    postImgContainer.className = "card-content-img-container";
+    if (element.media) {
+      //postImg
+      const postImg = document.createElement("img");
+      postImg.src = element.media;
+      postImgContainer.append(postImg);
     }
 
-    const reactionContainer = document.createElement("div")
-    reactionContainer.className = "reaction-container"
+    const reactionContainer = document.createElement("div");
+    reactionContainer.className = "reaction-container";
 
     //likeButton
-    const likeBtn = document.createElement("button")
-    const iLike = document.createElement("i")
-    iLike.className = "fas fa-heart"
-    
+    const likeBtn = document.createElement("button");
+    const iLike = document.createElement("i");
+    iLike.className = "fas fa-heart";
 
     //likeCount
     const spanLike = document.createElement("span");
     spanLike.id = `likeCount${element.id}`;
 
     const thumbReaction = element?.reactions?.find(
-          (reaction) => reaction.symbol === "👍"
+      (reaction) => reaction.symbol === "👍",
     );
     const count = thumbReaction?.count;
     spanLike.textContent = count;
-    
 
-    likeBtn.addEventListener("click", (e) => {
+    likeBtn.addEventListener("click", () => {
       reactToPosts(baseURL, element.id, token, spanLike);
     });
 
-  
     //commentButton, this will open the postId : (
-    const commentButton = document.createElement("button")
+    const commentButton = document.createElement("button");
     commentButton.setAttribute("data-bs-toggle", "modal");
     commentButton.setAttribute("data-bs-target", "#postId");
 
-
-function submitHandler(e, element, spanComment, commentCountModal, commentSectionModal) {
-    e.preventDefault();
-    handleFormSubmit(e, element, spanComment, commentCountModal, commentSectionModal);
-}
+    function submitHandler(
+      e,
+      element,
+      spanComment,
+      commentCountModal,
+      commentSectionModal,
+    ) {
+      e.preventDefault();
+      handleFormSubmit(
+        e,
+        element,
+        spanComment,
+        commentCountModal,
+        commentSectionModal,
+      );
+    }
     //modal for post with commentSection
-    commentButton.addEventListener('click', function() {
-      const modal = document.querySelector('#postId');
-      const modalProfileImg = modal.querySelector('#post-card-modal-img');
-      const modalUserName = modal.querySelector("#modalUserName")
-      const modalHandle = modal.querySelector("#modalUserHandle")
-      const modalPostImg = modal.querySelector('#modalImageSrc');
-      const modalTitle = modal.querySelector('#modalTitle');
-      const modalBody = modal.querySelector('#modalBody');
+    commentButton.addEventListener("click", function () {
+      const modal = document.querySelector("#postId");
+      const modalProfileImg = modal.querySelector("#post-card-modal-img");
+      const modalUserName = modal.querySelector("#modalUserName");
+      const modalHandle = modal.querySelector("#modalUserHandle");
+      const modalPostImg = modal.querySelector("#modalImageSrc");
+      const modalTitle = modal.querySelector("#modalTitle");
+      const modalBody = modal.querySelector("#modalBody");
       const commentCountModal = modal.querySelector("#commentCount");
       const commentForm = modal.querySelector("#modalCommentForm");
       const commentSectionModal = modal.querySelector("#commentSectionModal");
-  
+
       modalProfileImg.src = element.author?.avatar ?? "./img/avatar.jpg";
-      modalUserName.textContent = element.author?.name
-      modalHandle.textContent = "@ "+ element.author?.name
+      modalUserName.textContent = element.author?.name;
+      modalHandle.textContent = "@ " + element.author?.name;
       modalPostImg.src = element.media;
       modalTitle.textContent = element.title;
       modalBody.textContent = element.body;
       commentCountModal.textContent = element._count.comments;
-      commentSectionModal.textContent = '';
+      commentSectionModal.textContent = "";
 
       appendCommentsToModal(element.comments, commentSectionModal);
       if (commentForm.localSubmitHandler) {
-        commentForm.removeEventListener("submit", commentForm.localSubmitHandler);
-    }
-    commentForm.localSubmitHandler = (e) => submitHandler(e, element, spanComment, commentCountModal, commentSectionModal);
+        commentForm.removeEventListener(
+          "submit",
+          commentForm.localSubmitHandler,
+        );
+      }
+      commentForm.localSubmitHandler = (e) =>
+        submitHandler(
+          e,
+          element,
+          spanComment,
+          commentCountModal,
+          commentSectionModal,
+        );
 
-    
       commentForm.addEventListener("submit", commentForm.localSubmitHandler);
-    
-  });
+    });
     //commentIcon
     const iComment = document.createElement("i");
     iComment.className = "fas fa-comment";
@@ -499,12 +537,11 @@ function submitHandler(e, element, spanComment, commentCountModal, commentSectio
     const spanComment = document.createElement("span");
     spanComment.textContent = element._count.comments;
 
-    //extraFuncs if you are the author    
-    const specialFunctions = document.createElement("div")
-    specialFunctions.className="user-buttons"
+    //extraFuncs if you are the author
+    const specialFunctions = document.createElement("div");
+    specialFunctions.className = "user-buttons";
 
     if (userName === element.author?.name) {
-
       const deleteBtn = document.createElement("button");
       deleteBtn.className = "deletePostBtn";
       deleteBtn.setAttribute("aria-label", "Delete this post");
@@ -512,7 +549,7 @@ function submitHandler(e, element, spanComment, commentCountModal, commentSectio
       const iTrash = document.createElement("i");
       iTrash.className = "fas fa-trash";
       deleteBtn.append(iTrash);
-      specialFunctions.append(deleteBtn)
+      specialFunctions.append(deleteBtn);
 
       deleteBtn.addEventListener("click", async function () {
         const response = await deletePost(baseURL, element.id, token);
@@ -520,7 +557,6 @@ function submitHandler(e, element, spanComment, commentCountModal, commentSectio
           card.remove();
         }
       });
-
     }
 
     if (userName === element.author.name) {
@@ -537,30 +573,40 @@ function submitHandler(e, element, spanComment, commentCountModal, commentSectio
         document.getElementById("editTitle").value = element.title;
         document.getElementById("editBody").value = element.body;
 
+        // eslint-disable-next-line no-undef
         var modal = new bootstrap.Modal(
-          document.getElementById("editPostModal")
+          document.getElementById("editPostModal"),
         );
         modal.show();
       });
       specialFunctions.append(btnEdit);
     }
     //everyone gets a appending :s
-    likeBtn.append(iLike,spanLike)
-    commentButton.append(iComment,spanComment);
+    likeBtn.append(iLike, spanLike);
+    commentButton.append(iComment, spanComment);
 
-    userInfo.append(cardName,userHandle)
-    cardBodyContent.append(cardTitle,cardContentPost)
+    userInfo.append(cardName, userHandle);
+    cardBodyContent.append(cardTitle, cardContentPost);
 
-    reactionContainer.append(likeBtn, commentButton)
-    cardBodyContainer.append(cardBodyContent)
-    cardHeader.append(cardProfileImage,userInfo,timeStampCreated,specialFunctions)
+    reactionContainer.append(likeBtn, commentButton);
+    cardBodyContainer.append(cardBodyContent);
+    cardHeader.append(
+      cardProfileImage,
+      userInfo,
+      timeStampCreated,
+      specialFunctions,
+    );
 
     //append the containers
-    card.append(cardHeader,cardBodyContainer,postImgContainer,reactionContainer)
+    card.append(
+      cardHeader,
+      cardBodyContainer,
+      postImgContainer,
+      reactionContainer,
+    );
 
     container.appendChild(card);
   });
-  
 }
 
 generatePage();

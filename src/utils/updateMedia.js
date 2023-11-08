@@ -7,17 +7,17 @@
  * @returns {Promise<Object>} A Promise that resolves with the response data after updating the media.
  * @throws {Error} If an error occurs during the media update or data retrieval.
  */
-async function updateMedia(url,userName,values){
-
-    try{
-    const response = await fetch(`${url}/social/profiles/${userName}/media`,values)
-    const responseData = await response.json()
+async function updateMedia(url, userName, values) {
+  try {
+    const response = await fetch(
+      `${url}/social/profiles/${userName}/media`,
+      values,
+    );
+    const responseData = await response.json();
 
     return responseData;
-    }catch(err){
-        console.log(err)
-    }
-
-
+  } catch (err) {
+    console.log(err);
+  }
 }
-export default updateMedia
+export default updateMedia;

@@ -8,15 +8,17 @@
  * @returns {Promise<Array>} A Promise that resolves with an array of posts authored by the specified user profile.
  * @throws {Error} If an error occurs during the fetch request or data retrieval.
  */
-async function getPostsByProfile(url,name,options){
-    try{
-        const data = await fetch(`${url}/social/profiles/${name}/posts?_comments=true&_reactions=true&_author=true`, options);
-        const response = await data.json();
-        
-        return response
-        
-      } catch(err) {
-        console.log(err);
-      }
+async function getPostsByProfile(url, name, options) {
+  try {
+    const data = await fetch(
+      `${url}/social/profiles/${name}/posts?_comments=true&_reactions=true&_author=true`,
+      options,
+    );
+    const response = await data.json();
+
+    return response;
+  } catch (err) {
+    console.log(err);
+  }
 }
-export default getPostsByProfile
+export default getPostsByProfile;

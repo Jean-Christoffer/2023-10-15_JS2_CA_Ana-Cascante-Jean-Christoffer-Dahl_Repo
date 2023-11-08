@@ -1,6 +1,9 @@
 
 <img src="src\img\mouselogo.jpg" alt="Project Logo" width="200">
 
+![jestTest](https://github.com/Jean-Christoffer/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo/actions/workflows/jestTest.js.yml/badge.svg)
+![cypressTest](https://github.com/Jean-Christoffer/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo/actions/workflows/cypressTest.yml/badge.svg)
+![Deploy static content to Pages](https://github.com/Jean-Christoffer/2023-10-15_JS2_CA_Ana-Cascante-Jean-Christoffer-Dahl_Repo/actions/workflows/static.yml/badge.svg)
 
 # JS2-ca
 
@@ -30,6 +33,14 @@ npm install
 Start the application: 
 npm start 
 
+## Hooks
+Project is configured to run Prettier and ESLint on commit
+
+
+## Testing
+
+For testing with jest - npm run test-unit
+For testing with cypress - npm run test-e2e
 
 # Description of the project 
 
@@ -66,3 +77,7 @@ JeaDah78334@stud.noroff.no
 <a href="https://github.com/AnaCascante" target="_blank">Ana Cascante</a>
 Email: 
  AnaCas71213@stud.noroff.no
+
+# link to deployed site
+
+<a href="https://verdant-pudding-2bd2ac.netlify.app" target="_blank">Live site</a>
